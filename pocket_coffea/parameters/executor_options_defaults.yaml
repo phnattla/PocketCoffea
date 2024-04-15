@@ -3,7 +3,7 @@ general:
   chunksize: 50000
   limit-files: null
   limit-chunks: null
-  retries: 20
+  retries: 1
   tree-reduction: 20
   skip-bad-files: false
   voms-proxy: null
@@ -44,7 +44,8 @@ parsl-condor@DESY_NAF:
   logs-dir: logs_parsl
   queue: ""
   walltime: "12:00:00"
-
+  ignore-grid-certificate: false
+  
 parsl-condor@RWTH:
   scaleout: 1
   mem_per_worker: 2 # GB
@@ -52,3 +53,4 @@ parsl-condor@RWTH:
   local-virtualenv: false
   cores-per-worker: 1
   walltime: "12:00:00"
+  ignore-grid-certificate: false
