@@ -339,6 +339,51 @@ class WeightsManager:
             # return the nominal and everything
             return [(f"sf_btag_{var}", *weights) for var, weights in btagsf.items()]
 
+        elif weight_name == 'sf_btag_fixed_wp_all':
+            # Get all the nominal and variation SF
+            if shape_variation == "nominal":
+                btag_vars = self.params.systematic_variations.weight_variations.sf_btag[
+                    self._year
+                ]
+                btagsf = sf_btag(
+                    self.params,
+                    events.JetGood,
+                    self._year,
+                    njets=events.nJetGood,
+                    variations=["central"] + btag_vars,
+                )
+                # BE AWARE --> COFFEA HACK FOR MULTIPLE VARIATIONS
+                for var in btag_vars:
+                    # Rescale the up and down variation by the central one to
+                    # avoid double counting of the central SF when adding the weights
+                    # as separate entries in the Weights object.
+                    btagsf[var][1] = btagsf[var][1] / btagsf["central"][0]
+                    btagsf[var][2] = btagsf[var][2] / btagsf["central"][0]
+
+            elif "JES_" in shape_variation:
+                # Compute the special version of the btagSF for JES variation
+                # The name conversion is done inside the btag sf function.
+                btagsf = sf_btag(
+                    self.params,
+                    events.JetGood,
+                    self._year,
+                    njets=events.nJetGood,
+                    variations=[shape_variation],
+                )
+
+            else:
+                # Only the nominal if there is a shape variation (?)
+                btagsf = sf_btag(
+                    self.params,
+                    events.JetGood,
+                    self._year,
+                    njets=events.nJetGood,
+                    variations=["central"],
+                )
+
+            # return the nominal and everything
+            return [(f"sf_btag_{var}", *weights) for var, weights in btagsf.items()]
+
         elif weight_name == 'sf_btag_calib':
             # This variable needs to be defined in another method
             jetsHt = ak.sum(abs(events.JetGood.pt), axis=1)
