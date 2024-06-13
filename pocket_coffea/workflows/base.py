@@ -603,6 +603,7 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
             return
         # nominal is assumed to be the first
         variations = ["nominal"] + self.cfg.available_shape_variations[self._sample]
+        print(variations)
         # TO be understood if a copy is needed
         # This can be useless or suboptimal, working on it
         nominal_events = self.events

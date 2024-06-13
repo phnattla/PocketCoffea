@@ -268,7 +268,10 @@ class Configurator:
         weights to be applied for each sample and category'''
 
         # Get the list of statically available weights defined in the workflow
-        available_weights = self.workflow.available_weights()
+        available_weights = self.workflow.available_weights()        
+        print(available_weights)
+        for var in available_weights:
+            print(var)
         # Read the config and save the list of weights names for each sample (and category if needed)
         if "common" not in wcfg:
             print("Weights configuration error: missing 'common' weights key")
@@ -340,8 +343,11 @@ class Configurator:
 
         # Get the list of statically available variations defined in the workflow
         available_variations = self.workflow.available_variations()
+        print(available_variations)
+        for var in available_variations:
+            print(var)
         # Read the config and save the list of variations names for each sample (and category if needed)
-
+        print(wcfg)
         if "common" not in wcfg:
             print("Variation configuration error: missing 'common' weights key")
             raise Exception("Wrong variation configuration")
