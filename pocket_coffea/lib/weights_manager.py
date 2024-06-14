@@ -20,7 +20,8 @@ from .scale_factors import (
     sf_jet_puId,
     sf_L1prefiring,
     sf_pileup_reweight,
-    sf_btag_fixed_wp
+    sf_btag_fixed_wp,
+    sf_top_pt
 )
 
 
@@ -101,7 +102,8 @@ class WeightsManager:
                 'sf_ctag_calib',
                 'sf_jet_puId',
                 'sf_L1prefiring',
-                'sf_btag_fixed_wp'
+                'sf_btag_fixed_wp', 
+                'sf_top_pt'
             ]
         )
 
@@ -213,7 +215,6 @@ class WeightsManager:
             k: set(v) for k, v in self._available_modifiers_bycat.items()
         }
 
-        # print("Weights modifiers inclusive", self._available_modifiers_inclusive)
         # print("Weights modifiers bycat", self._available_modifiers_bycat)
         # Clear the cache once the Weights objects have been added
         _weightsCache.clear()
@@ -343,6 +344,10 @@ class WeightsManager:
 
         elif weight_name == 'sf_btag_fixed_wp':
             return [('sf_btag_fixed_wp', *sf_btag_fixed_wp(self.params, events.JetGood, self._year))]
+        elif weight_name == 'sf_top_pt':
+            if self._sample in ["TTTo2L2Nu", "TTToLNu2Q"]:
+                return [('sf_top_pt', *sf_top_pt(events["GenPart"]))]
+            return  np.ones(len(events))
 
         elif weight_name == 'sf_btag_calib':
             # This variable needs to be defined in another method

@@ -310,6 +310,108 @@ def sf_btag_fixed_wp(params, Jets, year, variations=["central"]):
     # print(btag_sf_fixed_wp)
     return btag_sf_fixed_wp, ak.copy(btag_sf_fixed_wp), ak.copy(btag_sf_fixed_wp)
 
+def sf_btag_fixed_wp_LMT(params, Jets, year, variations=["central"]):
+    btag_algo = params["btagging"]["working_point"][year]["btagging_algorithm"]
+    btag_wps = params["btagging"]["working_point"][year]["btagging_WP"]
+    sf_file = params["jet_scale_factors"]["btagSF"][year]["file"]
+    # Jets = events["JetGood"]
+
+    btag_effi_corr_set = correctionlib.CorrectionSet.from_file(
+        params.btagSF_calibration[year]["file"]
+    )
+    btag_sf_fixed_wp_corr_set = correctionlib.CorrectionSet.from_file(sf_file)
+
+    jetpt = ak.flatten(Jets["pt"])
+    jeteta = ak.flatten(Jets["eta"])
+    jetflav = ak.flatten(Jets["hadronFlavour"])
+    jetcounts = ak.num(Jets["pt"])
+
+    wpname = {
+        "L": "effiloose",
+        "M": "effimedium",
+        "T": "effitight"
+    }
+    
+    jetpt_heavy = ak.flatten(Jets["pt"][Jets["hadronFlavour"]>3])
+    jeteta_heavy = ak.flatten(Jets["eta"][Jets["hadronFlavour"]>3])
+    jetflav_heavy = ak.flatten(Jets["hadronFlavour"][Jets["hadronFlavour"]>3])
+    
+    jetpt_light = ak.flatten(Jets["pt"][Jets["hadronFlavour"]<4])
+    jeteta_light = ak.flatten(Jets["eta"][Jets["hadronFlavour"]<4])
+    jetflav_light = ak.flatten(Jets["hadronFlavour"][Jets["hadronFlavour"]<4])
+
+    for wp in ["L", "M", "T"]:
+        effi_MC = ak.unflatten(
+            btag_effi_corr_set[wpname[wp]].evaluate(jetpt, jeteta, jetflav), 
+            counts=jetcounts
+        )
+
+        sf_light_flat = btag_sf_fixed_wp_corr_set["robustParticleTransformer_light"].evaluate(
+            "central", 
+            wp, 
+            jetflav_light,
+            abs(jeteta_light), 
+            jetpt_light
+        )
+        sf_heavy_flat = btag_sf_fixed_wp_corr_set["robustParticleTransformer_comb"].evaluate(
+            "central", 
+            wp, 
+            jetflav_heavy, 
+            abs(jeteta_heavy), 
+            jetpt_heavy
+        )
+        sf_flat = ak.to_numpy(ak.copy(jetpt))
+        sf_flat[jetflav>3] = sf_heavy_flat
+        sf_flat[jetflav<4] = sf_light_flat
+        sf_DATA_MC = ak.unflatten(sf_flat, jetcounts)
+
+        effi_DATA = ak.prod([sf_DATA_MC, effi_MC], axis=0)
+
+        Jets = ak.with_field(Jets, effi_MC, "effi_MC_"+wp)
+        Jets = ak.with_field(Jets, effi_DATA, "effi_DATA_"+wp)
+
+    Jets_not_L = Jets[Jets[btag_algo] <= btag_wps["L"]]
+    Jets_L_not_M = Jets[(Jets[btag_algo] > btag_wps["L"])
+                            & (Jets[btag_algo] <= btag_wps["M"])]
+    Jets_M_not_T = Jets[(Jets[btag_algo] > btag_wps["M"])
+                            & (Jets[btag_algo] <= btag_wps["T"])]
+    Jets_T = Jets[Jets[btag_algo] > btag_wps["T"]]
+
+    p_MC_1 = 1 - Jets_not_L["effi_MC_L"]
+    p_MC_2 = Jets_L_not_M["effi_MC_L"] - Jets_L_not_M["effi_MC_M"]
+    p_MC_3 = Jets_M_not_T["effi_MC_M"] - Jets_M_not_T["effi_MC_T"]
+    p_MC_4 = Jets_T["effi_MC_T"]
+
+    p_DATA_1 = 1 - Jets_not_L["effi_DATA_L"]
+    p_DATA_2 = Jets_L_not_M["effi_DATA_L"] - Jets_L_not_M["effi_DATA_M"]
+    p_DATA_3 = Jets_M_not_T["effi_DATA_M"] - Jets_M_not_T["effi_DATA_T"]
+    p_DATA_4 = Jets_T["effi_DATA_T"]
+
+    p_MC = ak.concatenate([p_MC_1, p_MC_2, p_MC_3, p_MC_4], axis=1)
+    p_DATA = ak.concatenate([p_DATA_1, p_DATA_2, p_DATA_3, p_DATA_4], axis=1)
+
+    p_MC = ak.prod(p_MC, axis=-1)
+    p_DATA = ak.prod(p_DATA, axis=-1)
+    btag_sf_fixed_wp_LMT = np.divide(p_DATA, p_MC)
+
+    return btag_sf_fixed_wp_LMT, ak.copy(btag_sf_fixed_wp_LMT), ak.copy(btag_sf_fixed_wp_LMT)
+
+def sf_top_pt(part):
+    part = part[~ak.is_none(part.parent, axis=1)]
+    part = part[part.hasFlags("isLastCopy")]
+    part = part[abs(part.pdgId) == 6]
+    part = part[ak.argsort(part.pdgId, ascending=False)]
+    arg = {
+        "a": 0.103,
+        "b": -0.0118, 
+        "c": -0.000134,
+        "d": 0.973
+    }
+    top_weight = arg["a"] * np.exp(arg["b"] * part.pt[:,0]) + arg["c"] * part.pt[:,0] + arg["d"]
+    antitop_weight = arg["a"] * np.exp(arg["b"] * part.pt[:,1]) + arg["c"] * part.pt[:,1] + arg["d"]
+    weight = np.sqrt(ak.prod([top_weight, antitop_weight], axis=0))
+    return weight, ak.copy(weight), ak.copy(weight)
+
 def sf_btag(params, jets, year, njets, variations=["central"]):
     '''
     DeepJet AK4 btagging SF.
