@@ -18,6 +18,7 @@ from ..lib.weights_manager import WeightsManager
 from ..lib.columns_manager import ColumnsManager
 from ..lib.hist_manager import HistManager
 from ..lib.jets import jet_correction, met_correction, load_jet_factory
+from ..lib.leptons import get_ele_smeared, get_ele_scaled
 from ..lib.categorization import CartesianSelection
 from ..utils.skim import uproot_writeable, copy_file
 from ..utils.utils import dump_ak_array
@@ -636,6 +637,10 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     },
                     cache=cache
                 )
+        apply_eleSS = False
+        applyJES = False
+        if self._year in ["2022_preEE", "2022_postEE"]:
+            apply_eleSS = True
 
         for variation in variations:
             # BIG assumption:
@@ -648,8 +653,27 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
             if variation == "nominal" or not self._isMC:  #only nominal for data
                 self.events = nominal_events
                 # Just assign the nominal calibration
-                for jet_coll_name, jet_coll in jets_calibrated.items():
-                    self.events[jet_coll_name] = jet_coll
+                if applyJES:
+                    for jet_coll_name, jet_coll in jets_calibrated.items():
+                        self.events[jet_coll_name] = jet_coll
+
+                if apply_eleSS:
+                    etaSC = abs(self.events["Electron"]["deltaEtaSC"] + self.events["Electron"]["eta"])
+                    self.events["Electron"] = ak.with_field(
+                        self.events["Electron"], etaSC, "etaSC"
+                    )
+                    ssfile = self.params.lepton_scale_factors["electron_sf"]["JSONfiles"][self._year]["fileSS"]
+                    # Apply smearing on MC, scaling on Data
+                    if self._isMC:
+                        ele_pt_smeared = get_ele_smeared(self.events["Electron"], ssfile, self._isMC, nominal=True)
+                        self.events["ElectronSS"] = ak.with_field(
+                            self.events["Electron"], ele_pt_smeared["nominal"], "pt"
+                        )
+                    else:
+                        ele_pt_scaled = get_ele_scaled(self.events["Electron"], ssfile, self._isMC, self.events["run"])
+                        self.events["ElectronSS"] = ak.with_field(
+                            self.events["Electron"], ele_pt_scaled["nominal"], "pt"
+                        )
 
                 yield "nominal"
 
@@ -682,9 +706,34 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
             yield additional_variation
 
     def get_extra_shape_variations(self):
-        #empty generator
-        return
-        yield  # the yield defines the function as a generator and the return stops it to be empty
+        nominal_events = self.events
+        variations = ["ele_smearing", "ele_scale"]
+
+        ssfile = self.params.lepton_scale_factors["electron_sf"]["JSONfiles"][self._year]["fileSS"]
+
+        for variation in variations:
+            if not self._isMC:
+                return
+
+            elif variation == "ele_smearing":
+                self.events = nominal_events
+                print(self.events["Jet"]["pt"])
+                ele_pt_smeared = get_ele_smeared(self.events["Electron"], ssfile, self._isMC, nominal=False)
+                for shift in ["Up", "Down"]:
+                    self.events["ElectronSS"] = ak.with_field(
+                        self.events["Electron"], ele_pt_smeared[shift], "pt"
+                    )
+                    yield variation + shift
+                
+            elif variation == "ele_scale":
+                ele_pt_scaled = get_ele_scaled(self.events["Electron"], ssfile, self._isMC, self.events["run"])
+                self.events = nominal_events
+                for shift in ["Up", "Down"]:
+                    self.events["ElectronSS"] = ak.with_field(
+                        self.events["Electron"], ele_pt_scaled[shift], "pt"
+                    )
+                    yield variation + shift
+
 
     def process(self, events: ak.Array):
         '''

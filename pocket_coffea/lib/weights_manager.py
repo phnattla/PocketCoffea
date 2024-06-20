@@ -337,6 +337,7 @@ class WeightsManager:
                 )
 
             # return the nominal and everything
+            for key in btagsf.keys(): print(key)
             return [(f"sf_btag_{var}", *weights) for var, weights in btagsf.items()]
 
         elif weight_name == 'sf_btag_calib':
