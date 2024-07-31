@@ -637,10 +637,6 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     },
                     cache=cache
                 )
-        apply_eleSS = False
-        applyJES = False
-        if self._year in ["2022_preEE", "2022_postEE"]:
-            apply_eleSS = True
 
         for variation in variations:
             # BIG assumption:
@@ -653,27 +649,39 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
             if variation == "nominal" or not self._isMC:  #only nominal for data
                 self.events = nominal_events
                 # Just assign the nominal calibration
-                if applyJES:
-                    for jet_coll_name, jet_coll in jets_calibrated.items():
-                        self.events[jet_coll_name] = jet_coll
+                for jet_coll_name, jet_coll in jets_calibrated.items():
+                    print(jet_coll_name)
+                    self.events[jet_coll_name] = jet_coll
 
-                if apply_eleSS:
+                if self.params.lepton_scale_factors.electron_sf.JSONfiles[self._year]["apply_eleSS"]:
+                    print("Applying eleSS")
                     etaSC = abs(self.events["Electron"]["deltaEtaSC"] + self.events["Electron"]["eta"])
                     self.events["Electron"] = ak.with_field(
                         self.events["Electron"], etaSC, "etaSC"
+                    )
+                    self.events["Electron"] = ak.with_field(
+                        self.events["Electron"], self.events["Electron"]["pt"], "pt_original"
                     )
                     ssfile = self.params.lepton_scale_factors["electron_sf"]["JSONfiles"][self._year]["fileSS"]
                     # Apply smearing on MC, scaling on Data
                     if self._isMC:
                         ele_pt_smeared = get_ele_smeared(self.events["Electron"], ssfile, self._isMC, nominal=True)
-                        self.events["ElectronSS"] = ak.with_field(
+                        self.events["Electron"] = ak.with_field(
                             self.events["Electron"], ele_pt_smeared["nominal"], "pt"
                         )
+                        # if "eleSS" in variations:
+                        #     self.events["Electron"] = ak.with_field(
+                        #         self.events["Electron"], ele_pt_smeared["nominal"], "pt_nominal"
+                        #     )
                     else:
                         ele_pt_scaled = get_ele_scaled(self.events["Electron"], ssfile, self._isMC, self.events["run"])
-                        self.events["ElectronSS"] = ak.with_field(
+                        self.events["Electron"] = ak.with_field(
                             self.events["Electron"], ele_pt_scaled["nominal"], "pt"
                         )
+                        # if "eleSS" in variations:
+                        #     self.events["Electron"] = ak.with_field(
+                        #         self.events["Electron"], ele_pt_scaled["nominal"], "pt_nominal"
+                        #     )
 
                 yield "nominal"
 
@@ -702,8 +710,8 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
 
 
         # additional shape variations are handled with custom provided generators
-        for additional_variation in self.get_extra_shape_variations():
-            yield additional_variation
+        # for additional_variation in self.get_extra_shape_variations():
+            # yield additional_variation
 
     def get_extra_shape_variations(self):
         nominal_events = self.events
@@ -717,7 +725,6 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
 
             elif variation == "ele_smearing":
                 self.events = nominal_events
-                print(self.events["Jet"]["pt"])
                 ele_pt_smeared = get_ele_smeared(self.events["Electron"], ssfile, self._isMC, nominal=False)
                 for shift in ["Up", "Down"]:
                     self.events["ElectronSS"] = ak.with_field(

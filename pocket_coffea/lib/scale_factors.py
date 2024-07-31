@@ -115,7 +115,7 @@ def get_mu_sf(params, year, pt, eta, counts, key=''):
     sfdown = muon_correctionset[sfName].evaluate(
         np.abs(eta.to_numpy()), pt.to_numpy(), "systdown"
     )
-    
+    # print("musf", ak.to_list(ak.unflatten(sf, counts))[:10])
     # The unflattened arrays are returned in order to have one row per event.
     return (
         ak.unflatten(sf, counts),
@@ -295,6 +295,9 @@ def sf_btag_fixed_wp(params, Jets, year, variations=["central"]):
         counts=jetcounts
     )
 
+    # output = {}
+    # variations = ["central"]
+    # for var in variations:
     sf_light_flat = btag_sf_fixed_wp_corr_set["robustParticleTransformer_light"].evaluate(
         "central", 
         wp, 
@@ -334,7 +337,7 @@ def sf_btag_fixed_wp(params, Jets, year, variations=["central"]):
     p_DATA = ak.prod(p_DATA, axis=-1)
 
     btag_sf_fixed_wp = np.divide(p_DATA, p_MC)
-    # print(btag_sf_fixed_wp)
+    
     return btag_sf_fixed_wp, ak.copy(btag_sf_fixed_wp), ak.copy(btag_sf_fixed_wp)
 
 def sf_btag_fixed_wp_LMT(params, Jets, year, variations=["central"]):
@@ -437,7 +440,7 @@ def sf_top_pt(part):
     top_weight = arg["a"] * np.exp(arg["b"] * part.pt[:,0]) + arg["c"] * part.pt[:,0] + arg["d"]
     antitop_weight = arg["a"] * np.exp(arg["b"] * part.pt[:,1]) + arg["c"] * part.pt[:,1] + arg["d"]
     weight = np.sqrt(ak.prod([top_weight, antitop_weight], axis=0))
-    return weight, ak.copy(weight), ak.copy(weight)
+    return weight, np.ones(ak.num(weight)), np.ones(ak.num(weight))
 
 def sf_btag(params, jets, year, njets, variations=["central"]):
     '''

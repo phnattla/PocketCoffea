@@ -247,12 +247,15 @@ class WeightsManager:
         elif weight_name == 'XS':
             return [('XS', ak.full_like(events.genWeight, self._xsec))]
         elif weight_name == 'pileup':
+            sf_pu = sf_pileup_reweight(self.params, events, self._year)
             # Pileup reweighting with nominal, up and down variations
-            return [('pileup', *sf_pileup_reweight(self.params, events, self._year))]
+            # return [('pileup', *sf_pileup_reweight(self.params, events, self._year))]
+            return [('pileup', *sf_pu)]
         elif weight_name == 'sf_ele_reco':
             # Electron reco and id SF with nominal, up and down variations
             return [('sf_ele_reco', *sf_ele_reco(self.params, events, self._year))]
         elif weight_name == "sf_ele_id":
+            # print(sf_ele_id(self.params, events, self._year)[0][:10])
             return [('sf_ele_id', *sf_ele_id(self.params, events, self._year))]
         elif weight_name == 'sf_mu_id':
             # Muon id and iso SF with nominal, up and down variations
@@ -340,15 +343,19 @@ class WeightsManager:
                 )
 
             # return the nominal and everything
-            for key in btagsf.keys(): print(key)
+            # for key in btagsf.keys(): print(key)
             return [(f"sf_btag_{var}", *weights) for var, weights in btagsf.items()]
 
         elif weight_name == 'sf_btag_fixed_wp':
+            # btag_vars = self.params.systematic_variations.weight_variations.sf_btag[
+                    # self._year
+                # ]
             return [('sf_btag_fixed_wp', *sf_btag_fixed_wp(self.params, events.JetGood, self._year))]
         elif weight_name == 'sf_top_pt':
+            # print("sf top pt:", ak.to_list([*sf_top_pt(events["GenPart"])][0])[:10])
             if self._sample in ["TTTo2L2Nu", "TTToLNu2Q"]:
                 return [('sf_top_pt', *sf_top_pt(events["GenPart"]))]
-            return  np.ones(len(events))
+            return  [('sf_top_pt', np.ones(len(events)), np.ones(len(events)), np.ones(len(events)))] 
 
         elif weight_name == 'sf_btag_calib':
             # This variable needs to be defined in another method

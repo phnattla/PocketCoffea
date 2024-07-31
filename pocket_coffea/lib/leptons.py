@@ -36,14 +36,8 @@ def get_ele_scaled(ele, jsonFileName, isMC, runNr):
             ele_r9_flat, 
             ele_pt_flat
         )
-        print(scale_MC_unc)
         ele_pt_scale_up = ak.unflatten((1+scale_MC_unc) * ele_pt_flat, counts=ele_counts)
         ele_pt_scale_down = ak.unflatten((1-scale_MC_unc) * ele_pt_flat, counts=ele_counts)
-        # print(ak.unflatten(ele_pt_flat, counts=ele_counts))
-        print(ak.to_list(ak.unflatten(ele_pt_flat, counts=ele_counts))[:3])
-        print(ak.to_list(ele_pt_scale_up)[:3])
-        print(ak.to_list(ele_pt_scale_down)[:3])
-        # print(ele_pt_scale_down)
         return {"Up": ele_pt_scale_up, "Down": ele_pt_scale_down}
 
 def get_ele_smeared(mc_ele, jsonFileName, isMC, nominal=True):
@@ -86,7 +80,7 @@ def lepton_selection(events, lepton_flavour, params):
     passes_eta = abs(leptons.eta) < cuts["eta"]
     passes_pt = leptons.pt > cuts["pt"]
 
-    if lepton_flavour == "Electron":
+    if "Electron" in lepton_flavour:
         # Requirements on SuperCluster eta, isolation and id
         etaSC = abs(leptons.deltaEtaSC + leptons.eta)
         passes_SC = np.invert((etaSC >= 1.4442) & (etaSC <= 1.5660))
