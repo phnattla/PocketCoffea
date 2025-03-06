@@ -293,6 +293,73 @@ def get_partons_provenance_ttHbb_dileptonic(pdgIds, array_builder):
     return array_builder
 
 @njit
+def get_partons_provenance_ttHbb_dileptonic_v2(pdgIds, array_builder):
+    """
+    This function assigns particle provenance (origin) for b-quarks in a dileptonic ttH -> bb process,
+    where the Higgs decays into two b-quarks, and both the top and anti-top quarks decay, producing
+    additional b-quarks.
+
+    1 = higgs bquarks,
+    2 = top bquark,
+    3 = antitop bquark,
+    4 = additional radiation (if present)
+    """
+
+    for ids in pdgIds:
+        from_part = [-1] * max(4, len(ids))
+        if len(ids) <4:
+            raise Exception("len of ids cannot be <4, since 2 b from H,  2b from tt")
+        elif len(ids) == 4:
+            from_part[0] = 1
+            from_part[1] = 1
+            from_part[2] = 2
+            from_part[3] = 3
+        else:
+            from_part[0] = 1
+            from_part[1] = 1
+            from_part[2] = -1
+            from_part[3] = 2
+            from_part[4] = 3
+            if len(ids)>5:
+                for i in range(len(ids)-5):
+                    from_part[5+i] = -1
+        array_builder.begin_list()
+        for i in from_part:
+            array_builder.append(i)
+        array_builder.end_list()
+    return array_builder
+
+@njit
+def get_partons_provenance_TTTo2L2Nu(pdgIds, array_builder):
+    """
+    This function assigns particle provenance (origin) for b-quarks in a dileptonic ttH -> bb process,
+    where the Higgs decays into two b-quarks, and both the top and anti-top quarks decay, producing
+    additional b-quarks.
+
+    1 = higgs bquarks,
+    2 = top bquark,
+    3 = antitop bquark,
+    4 = additional radiation (if present)
+    """
+
+    for ids in pdgIds:
+        from_part = [-1] * max(3, len(ids))
+        if len(ids) <3:
+            raise Exception("len of ids cannot be <5, g, 2b from tt")
+        else:
+            from_part[0] = -1
+            from_part[1] = 2
+            from_part[2] = 3
+            if len(ids)>3:
+                for i in range(len(ids)-3):
+                    from_part[3+i] = -1
+        array_builder.begin_list()
+        for i in from_part:
+            array_builder.append(i)
+        array_builder.end_list()
+    return array_builder
+
+@njit
 def get_partons_provenance_ttbb4F(pdgIds, array_builder):
     """
     1=g->bb,

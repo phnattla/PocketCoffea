@@ -119,7 +119,7 @@ class DaskExecutorFactory(ExecutorFactoryABC):
             'export XRD_RUNFORKHANDLER=1',
             'export MALLOC_TRIM_THRESHOLD_=0',
             f'export X509_USER_PROXY={self.x509_path}',
-            'ulimit -u unlimited',
+            'ulimit -u 32768',
             ]
         
         # Adding list of custom setup commands from user defined run options

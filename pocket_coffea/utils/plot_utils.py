@@ -923,7 +923,8 @@ class Shape:
                 arg_log = 100
             exp = math.floor(math.log(arg_log, 10))
             y_lim_hi = self.style.opts_ylim["datamc"]["ylim_log"].get("hi", 10 ** (exp*1.75))
-            self.ax.set_ylim((self.style.opts_ylim["datamc"]["ylim_log"]["lo"], y_lim_hi))
+            self.ax.set_ylim((0.1, y_lim_hi))
+            # self.ax.set_ylim((self.style.opts_ylim["datamc"]["ylim_log"]["lo"], y_lim_hi))
             # Revert handles and labels in logarithmic plot
             if self.is_mc_only:
                 handles_to_reverse = handles[:-1]
