@@ -30,6 +30,7 @@ class ParslCondorExecutorFactory(ExecutorFactoryABC):
             'export XRD_RUNFORKHANDLER=1',
             'export MALLOC_TRIM_THRESHOLD_=0',
             f'export X509_USER_PROXY={self.x509_path}',
+            f'export PYTHONPATH=$PYTHONPATH:{os.getcwd()}',
             'ulimit -u 32768',
             'source /cvmfs/grid.desy.de/etc/profile.d/grid-ui-env.sh'
             ]
@@ -63,7 +64,7 @@ class ParslCondorExecutorFactory(ExecutorFactoryABC):
                     HighThroughputExecutor(
                         label="coffea_parsl_condor",
                         address=address_by_hostname(),
-                        max_workers=1,
+                        max_workers_per_node=1,
                         # Condor
                         provider=CondorProvider(
                             nodes_per_block=1,
