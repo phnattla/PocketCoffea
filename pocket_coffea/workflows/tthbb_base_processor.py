@@ -8,7 +8,7 @@ from ..lib.objects import (
     jet_correction,
     lepton_selection,
     jet_selection,
-    photon_selection,
+    # photon_selection,
     btagging,
     get_dilepton,
 )
