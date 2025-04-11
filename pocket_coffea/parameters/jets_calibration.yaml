@@ -246,6 +246,25 @@ default_jets_calibration:
 
   ########################## Data ########################################
   factory_configuration_Data:
+    AK4PFchs:
+      JES:
+        "2018":
+          A:
+            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+          B:
+            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+          C:
+            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+          D:
+            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
     AK4PFPuppi:
       JES:
         2022_preEE:
@@ -303,6 +322,7 @@ jets_calibration:
       AK4PFPuppi: "${default_jets_calibration.factory_configuration_MC.AK4PFPuppi.JES_JER_Syst}" 
       AK8PFPuppi: "${default_jets_calibration.factory_configuration_MC.AK8PFPuppi.JES_JER_Syst}"
     Data:
+      AK4PFchs: "${default_jets_calibration.factory_configuration_Data.AK4PFchs.JES}" 
       AK4PFPuppi: "${default_jets_calibration.factory_configuration_Data.AK4PFPuppi.JES}" 
     
   collection:  # this is needed to know which collection is corrected with which jet factory
@@ -317,7 +337,7 @@ jets_calibration:
       AK8PFPuppi: "FatJet"
     "2018":
       AK4PFchs: "Jet"
-      AK8PFPuppi: "FatJet"
+      # AK8PFPuppi: "FatJet"
     2022_preEE:
       AK4PFPuppi: "Jet"
       #AK8PFPuppi: "FatJet"
