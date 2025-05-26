@@ -228,6 +228,13 @@ default_jets_calibration:
           - "${default_params_dir:}/jec/Summer22EE/Summer22EEPrompt22_JRV1_MC_PtResolution_AK4PFPuppi.jr.txt.gz"
           - "${default_params_dir:}/jec/Summer22EE/Summer22EEPrompt22_JRV1_MC_SF_AK4PFPuppi.jersf.txt.gz"
           
+        # 2023_preBPix:
+        #   - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_L1FastJet_AK4PFPuppi.txt"
+        #   - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_L2Relative_AK4PFPuppi.txt"
+        #   - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_UncertaintySources_AK4PFPuppi.txt"
+        #   - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_Uncertainty_AK4PFPuppi.txt"
+        #   - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_JRV1_MC_PtResolution_AK4PFPuppi.txt"
+        #   - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_JRV1_MC_SF_AK4PFPuppi.txt"
         2023_preBPix:
           - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_L1FastJet_AK4PFPuppi.jec.txt.gz"
           - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_L2Relative_AK4PFPuppi.jec.txt.gz"
@@ -289,6 +296,17 @@ default_jets_calibration:
             - "${default_params_dir:}/jec/Summer22EE/Summer22EE-22Sep2023_RunG_V2_DATA_L2Relative_AK4PFPuppi.txt.gz"
             - "${default_params_dir:}/jec/Summer22EE/Summer22EE-22Sep2023_RunG_V2_DATA_L2L3Residual_AK4PFPuppi.txt.gz"
 
+        # 2023_preBPix:
+        #   Cv1:
+        #     - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_RunCv123_V1_DATA_L1FastJet_AK4PFPuppi.txt"
+        #     - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_RunCv123_V1_DATA_L2Relative_AK4PFPuppi.txt"
+        #     - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_RunCv123_V1_DATA_L2L3Residual_AK4PFPuppi.txt"
+        #   Cv2: "${default_jets_calibration.factory_configuration_Data.AK4PFPuppi.JES.2023_preBPix.Cv1}"
+        #   Cv3: "${default_jets_calibration.factory_configuration_Data.AK4PFPuppi.JES.2023_preBPix.Cv1}"
+        #   Cv4:
+        #     - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_RunCv4_V1_DATA_L1FastJet_AK4PFPuppi.txt"
+        #     - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_RunCv4_V1_DATA_L2Relative_AK4PFPuppi.txt"
+        #     - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_RunCv4_V1_DATA_L2L3Residual_AK4PFPuppi.txt"
         2023_preBPix:
           Cv1:
             - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_RunCv123_V1_DATA_L1FastJet_AK4PFPuppi.txt.gz"

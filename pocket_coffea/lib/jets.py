@@ -6,7 +6,8 @@ import cloudpickle
 import awkward as ak
 import numpy as np
 import correctionlib
-from coffea.jetmet_tools import  CorrectedMETFactory
+from coffea.jetmet_tools import  CorrectedMETFactory, JECStack, CorrectedJetsFactory
+# from coffea.jetmet_tools import  JECStack
 from ..lib.deltaR_matching import get_matching_pairs_indices, object_matching
 
 
@@ -16,6 +17,8 @@ def add_jec_variables(jets, event_rho, isMC=True):
     jets["event_rho"] = ak.broadcast_arrays(event_rho, jets.pt)[0]
     if isMC:
         jets["pt_gen"] = ak.values_astype(ak.fill_none(jets.matched_gen.pt, 0), np.float32)
+    print(jets.pt_raw)
+    print(jets.rawFactor)
     return jets
 
 def load_jet_factory(params):
@@ -27,8 +30,255 @@ def load_jet_factory(params):
             print(f"Error loading the jet factory file: {params.jets_calibration.factory_file} --> Please remove the file and rerun the code")
             raise Exception(f"Error loading the jet factory file: {params.jets_calibration.factory_file} --> Please remove the file and rerun the code")
         
+jerc_dict = {
+    "2016": {
+        "jec_mc"  : "Summer19UL16_V7_MC",
+        "jec_data": "Summer19UL16_RunFGH_V7_DATA",
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+        ],
+        "jer"     : "Summer20UL16_JRV3_MC",
+        "junc"    : [
+            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
+            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
+        ]
+    },
+    "2016APV": {
+        "jec_mc": "Summer19UL16APV_V7_MC",
+        "jec_data": {
+            "B": "Summer19UL16APV_RunBCD_V7_DATA",
+            "C": "Summer19UL16APV_RunBCD_V7_DATA",
+            "D": "Summer19UL16APV_RunBCD_V7_DATA",
+            "E": "Summer19UL16APV_RunEF_V7_DATA",
+            "F": "Summer19UL16APV_RunEF_V7_DATA",
+        },
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+        ],
+        "jer": "Summer20UL16APV_JRV3_MC",
+        "junc"    : [
+            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
+            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
+        ]
+    },
+    "2017": {
+        "jec_mc": "Summer19UL17_V5_MC",
+        "jec_data": {
+            "B": "Summer19UL17_RunB_V5_DATA",
+            "C": "Summer19UL17_RunC_V5_DATA",
+            "D": "Summer19UL17_RunD_V5_DATA",
+            "E": "Summer19UL17_RunE_V5_DATA",
+            "F": "Summer19UL17_RunF_V5_DATA",
+        },
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+        ],
+        "jer": "Summer19UL17_JRV2_MC",
+        "junc"    : [
+            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
+            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
+        ]
+    },
+    "2018": {
+        "jec_mc": "Summer19UL18_V5_MC",
+        "jec_data": {
+            "A": "Summer19UL18_RunA_V5_DATA",
+            "B": "Summer19UL18_RunB_V5_DATA",
+            "C": "Summer19UL18_RunC_V5_DATA",
+            "D": "Summer19UL18_RunD_V5_DATA",
+        },
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+        ],
+        "jer": "Summer19UL18_JRV2_MC",
+        "junc"    : [
+            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
+            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
+        ]
+
+    },
+    "2022": {
+        "jec_mc"  : "Summer22_22Sep2023_V2_MC",
+        "jec_data": "Summer22_22Sep2023_RunCD_V2_DATA",
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+            "L3Absolute",
+            "L2L3Residual",
+        ],
+        "jer"     : "Summer22_22Sep2023_JRV1_MC",
+        "junc"    : [
+            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
+            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
+            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
+            "SinglePionECAL","SinglePionHCAL",
+            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
+            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
+            "Total",
+        ]
+    },
+    "2022EE": {
+        "jec_mc": "Summer22EE_22Sep2023_V2_MC",
+        "jec_data": {
+            "E": "Summer22EE_22Sep2023_RunE_V2_DATA",
+            "F": "Summer22EE_22Sep2023_RunF_V2_DATA",
+            "G": "Summer22EE_22Sep2023_RunG_V2_DATA",
+        },
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+            "L3Absolute",
+            "L2L3Residual",
+        ],
+        "jer": "Summer22EE_22Sep2023_JRV1_MC",
+        "junc"    : [
+            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
+            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
+            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
+            "SinglePionECAL","SinglePionHCAL",
+            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
+            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
+            "Total",
+        ]
+    },
+    "2023": {
+        "jec_mc": "Summer23Prompt23_V1_MC",
+        "jec_data": {
+            "Cv1": "Summer23Prompt23_RunCv123_V1_DATA",
+            "Cv2": "Summer23Prompt23_RunCv123_V1_DATA",
+            "Cv3": "Summer23Prompt23_RunCv123_V1_DATA",
+            "Cv4": "Summer23Prompt23_RunCv4_V1_DATA",
+        },
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+            "L3Absolute",
+            "L2L3Residual",
+        ],
+        "jer": "Summer23Prompt23_RunCv1234_JRV1_MC",
+        "junc"    : [
+            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
+            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
+            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
+            "SinglePionECAL","SinglePionHCAL",
+            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
+            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
+            "Total",
+        ]
+    },
+    "2023BPix": {
+        "jec_mc"  : "Summer23BPixPrompt23_V1_MC",
+        "jec_data": "Summer23BPixPrompt23_RunD_V1_DATA",
+        "jec_levels": [
+            "L1FastJet",
+            "L2Relative",
+            "L3Absolute",
+            "L2L3Residual",
+        ],
+        "jer"     : "Summer23BPixPrompt23_RunD_JRV1_MC",
+        "junc"    : [
+            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
+            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
+            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
+            "SinglePionECAL","SinglePionHCAL",
+            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
+            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
+            "Total",
+        ]
+    }
+}       
+
+def get_jerc_keys(year, isdata, era=None):
+    # Jet Algorithm
+    if year.startswith("202"):
+        jet_algo = 'AK4PFPuppi'
+    else:
+        jet_algo = 'AK4PFchs'
+
+    #jec levels
+    jec_levels = jerc_dict[year]['jec_levels']
+
+    # jerc keys and junc types
+    if not isdata:
+        jec_key    = jerc_dict[year]['jec_mc']
+        jer_key    = jerc_dict[year]['jer']
+        junc_types = jerc_dict[year]['junc']
+    else:
+        if year in ['2016','2022','2023BPix']:
+            jec_key = jerc_dict[year]['jec_data']
+        else:
+            jec_key = jerc_dict[year]['jec_data'][era]
+        jer_key     = None
+        junc_types  = None
+
+    return jet_algo, jec_key, jec_levels, jer_key, junc_types
+
+
+
+def get_jet_factory_corrlib(chunk_metadata):
+    print("TEST JEC Corrlib")
+    # year = chunk_metadata["year"]
+    isData = not chunk_metadata["isMC"]
+    print(isData)
+    # print(params.keys())
+    json_path = f"/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2023_Summer23/jet_jerc.json.gz"
+    # json_path = params["JECjsonFiles"][year]["AK4"]
+    print(json_path)
+    jet_algo, jec_tag, jec_levels, jer_tag, junc_types = get_jerc_keys("2023", isData, chunk_metadata["era"])
+    # json_path = topcoffea_path(f"data/POG/JME/{jec_year}/jet_jerc.json.gz")
+
+    # Create JECStack for clib scenario
+    jec_stack = JECStack(
+        jec_tag=jec_tag,
+        jec_levels=jec_levels,
+        jer_tag=jer_tag,
+        jet_algo=jet_algo,
+        junc_types=junc_types,
+        json_path=json_path,
+        use_clib=True,
+        savecorr=False
+    )
+
+    # Name map for jet or MET corrections
+    name_map = {
+        'JetPt': 'pt',
+        'JetMass': 'mass',
+        'JetEta': 'eta',
+        'JetPhi': 'phi',
+        'JetA': 'area',
+        'ptGenJet': 'pt_gen',
+        'ptRaw': 'pt_raw',
+        'massRaw': 'mass_raw',
+        'Rho': 'event_rho',
+    }
+    return CorrectedJetsFactory(name_map, jec_stack)
+
+
+def jet_correction_corrlib(params, events, jets, factory, jet_type, chunk_metadata, cache):
+    # print(type(factory["Data"][jet_type][chunk_metadata["year"]][chunk_metadata["era"]]))
+    if chunk_metadata["year"] in ['2016_PreVFP', '2016_PostVFP','2017','2018']:
+        rho = events.fixedGridRhoFastjetAll
+    else:
+        rho = events.Rho.fixedGridRhoFastjetAll
+
+    if chunk_metadata["isMC"]:
+        return get_jet_factory_corrlib(chunk_metadata).build(
+            add_jec_variables(jets, rho, isMC=True), cache
+        )
+    else:
+        # if chunk_metadata["era"] not in factory["Data"][jet_type][chunk_metadata["year"]]:
+            # raise Exception(f"Factory for {jet_type} in {chunk_metadata['year']} and era {chunk_metadata['era']} not found. Check your jet calibration files.")
+
+        return get_jet_factory_corrlib(chunk_metadata).build(
+            add_jec_variables(jets, rho, isMC=False), cache
+        )
 
 def jet_correction(params, events, jets, factory, jet_type, chunk_metadata, cache):
+    print(type(factory["Data"][jet_type][chunk_metadata["year"]][chunk_metadata["era"]]))
     if chunk_metadata["year"] in ['2016_PreVFP', '2016_PostVFP','2017','2018']:
         rho = events.fixedGridRhoFastjetAll
     else:
