@@ -29,207 +29,29 @@ def load_jet_factory(params):
         except Exception as e:
             print(f"Error loading the jet factory file: {params.jets_calibration.factory_file} --> Please remove the file and rerun the code")
             raise Exception(f"Error loading the jet factory file: {params.jets_calibration.factory_file} --> Please remove the file and rerun the code")
-        
-jerc_dict = {
-    "2016": {
-        "jec_mc"  : "Summer19UL16_V7_MC",
-        "jec_data": "Summer19UL16_RunFGH_V7_DATA",
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-        ],
-        "jer"     : "Summer20UL16_JRV3_MC",
-        "junc"    : [
-            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
-            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
-        ]
-    },
-    "2016APV": {
-        "jec_mc": "Summer19UL16APV_V7_MC",
-        "jec_data": {
-            "B": "Summer19UL16APV_RunBCD_V7_DATA",
-            "C": "Summer19UL16APV_RunBCD_V7_DATA",
-            "D": "Summer19UL16APV_RunBCD_V7_DATA",
-            "E": "Summer19UL16APV_RunEF_V7_DATA",
-            "F": "Summer19UL16APV_RunEF_V7_DATA",
-        },
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-        ],
-        "jer": "Summer20UL16APV_JRV3_MC",
-        "junc"    : [
-            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
-            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
-        ]
-    },
-    "2017": {
-        "jec_mc": "Summer19UL17_V5_MC",
-        "jec_data": {
-            "B": "Summer19UL17_RunB_V5_DATA",
-            "C": "Summer19UL17_RunC_V5_DATA",
-            "D": "Summer19UL17_RunD_V5_DATA",
-            "E": "Summer19UL17_RunE_V5_DATA",
-            "F": "Summer19UL17_RunF_V5_DATA",
-        },
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-        ],
-        "jer": "Summer19UL17_JRV2_MC",
-        "junc"    : [
-            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
-            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
-        ]
-    },
-    "2018": {
-        "jec_mc": "Summer19UL18_V5_MC",
-        "jec_data": {
-            "A": "Summer19UL18_RunA_V5_DATA",
-            "B": "Summer19UL18_RunB_V5_DATA",
-            "C": "Summer19UL18_RunC_V5_DATA",
-            "D": "Summer19UL18_RunD_V5_DATA",
-        },
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-        ],
-        "jer": "Summer19UL18_JRV2_MC",
-        "junc"    : [
-            'FlavorQCD', 'FlavorPureBottom', 'FlavorPureQuark', 'FlavorPureGluon', 'FlavorPureCharm',
-            'Regrouped_BBEC1', 'Regrouped_Absolute', 'Regrouped_RelativeBal', 'RelativeSample'
-        ]
 
-    },
-    "2022": {
-        "jec_mc"  : "Summer22_22Sep2023_V2_MC",
-        "jec_data": "Summer22_22Sep2023_RunCD_V2_DATA",
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-            "L3Absolute",
-            "L2L3Residual",
-        ],
-        "jer"     : "Summer22_22Sep2023_JRV1_MC",
-        "junc"    : [
-            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
-            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
-            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
-            "SinglePionECAL","SinglePionHCAL",
-            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
-            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
-            "Total",
-        ]
-    },
-    "2022EE": {
-        "jec_mc": "Summer22EE_22Sep2023_V2_MC",
-        "jec_data": {
-            "E": "Summer22EE_22Sep2023_RunE_V2_DATA",
-            "F": "Summer22EE_22Sep2023_RunF_V2_DATA",
-            "G": "Summer22EE_22Sep2023_RunG_V2_DATA",
-        },
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-            "L3Absolute",
-            "L2L3Residual",
-        ],
-        "jer": "Summer22EE_22Sep2023_JRV1_MC",
-        "junc"    : [
-            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
-            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
-            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
-            "SinglePionECAL","SinglePionHCAL",
-            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
-            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
-            "Total",
-        ]
-    },
-    "2023": {
-        "jec_mc": "Summer23Prompt23_V1_MC",
-        "jec_data": {
-            "Cv1": "Summer23Prompt23_RunCv123_V1_DATA",
-            "Cv2": "Summer23Prompt23_RunCv123_V1_DATA",
-            "Cv3": "Summer23Prompt23_RunCv123_V1_DATA",
-            "Cv4": "Summer23Prompt23_RunCv4_V1_DATA",
-        },
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-            "L3Absolute",
-            "L2L3Residual",
-        ],
-        "jer": "Summer23Prompt23_RunCv1234_JRV1_MC",
-        "junc"    : [
-            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
-            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
-            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
-            "SinglePionECAL","SinglePionHCAL",
-            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
-            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
-            "Total",
-        ]
-    },
-    "2023BPix": {
-        "jec_mc"  : "Summer23BPixPrompt23_V1_MC",
-        "jec_data": "Summer23BPixPrompt23_RunD_V1_DATA",
-        "jec_levels": [
-            "L1FastJet",
-            "L2Relative",
-            "L3Absolute",
-            "L2L3Residual",
-        ],
-        "jer"     : "Summer23BPixPrompt23_RunD_JRV1_MC",
-        "junc"    : [
-            "AbsoluteMPFBias","AbsoluteScale","FlavorQCD","Fragmentation","PileUpDataMC",
-            "PileUpPtBB","PileUpPtEC1","PileUpPtEC2","PileUpPtHF","PileUpPtRef",
-            "RelativeFSR","RelativeJERHF","RelativePtBB","RelativePtHF","RelativeBal",
-            "SinglePionECAL","SinglePionHCAL",
-            "AbsoluteStat","RelativeJEREC1","RelativeJEREC2","RelativePtEC1","RelativePtEC2",
-            "TimePtEta","RelativeSample","RelativeStatEC","RelativeStatFSR","RelativeStatHF",
-            "Total",
-        ]
-    }
-}       
 
-def get_jerc_keys(year, isdata, era=None):
-    # Jet Algorithm
-    if year.startswith("202"):
-        jet_algo = 'AK4PFPuppi'
+def get_jet_factory_corrlib(params, jet_type, chunk_metadata):
+
+    isMC = chunk_metadata["isMC"]
+    year = chunk_metadata["year"]
+    jec_clib_dict = params["default_jets_calibration"]["jec_correctionlib"]
+
+    json_path = jec_clib_dict[year]["json_path"]
+    jet_algo = jet_type
+    jec_levels = jec_clib_dict[year]['jec_levels']
+    jer_tag = None
+    junc_types = None
+    if isMC:
+        jec_tag = jec_clib_dict[year]['jec_mc'] if isMC else jec_clib_dict[year]['jec_data']
+        jer_tag = jec_clib_dict[year]['jer'] if isMC else None
+        junc_types = jec_clib_dict[year]['junc'] if isMC else None
     else:
-        jet_algo = 'AK4PFchs'
-
-    #jec levels
-    jec_levels = jerc_dict[year]['jec_levels']
-
-    # jerc keys and junc types
-    if not isdata:
-        jec_key    = jerc_dict[year]['jec_mc']
-        jer_key    = jerc_dict[year]['jer']
-        junc_types = jerc_dict[year]['junc']
-    else:
-        if year in ['2016','2022','2023BPix']:
-            jec_key = jerc_dict[year]['jec_data']
+        # print(type(jec_clib_dict[year]['jec_data']))
+        if type(jec_clib_dict[year]['jec_data'])==str:
+            jec_tag = jec_clib_dict[year]['jec_data']
         else:
-            jec_key = jerc_dict[year]['jec_data'][era]
-        jer_key     = None
-        junc_types  = None
-
-    return jet_algo, jec_key, jec_levels, jer_key, junc_types
-
-
-
-def get_jet_factory_corrlib(chunk_metadata):
-    print("TEST JEC Corrlib")
-    # year = chunk_metadata["year"]
-    isData = not chunk_metadata["isMC"]
-    print(isData)
-    # print(params.keys())
-    json_path = f"/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2023_Summer23/jet_jerc.json.gz"
-    # json_path = params["JECjsonFiles"][year]["AK4"]
-    print(json_path)
-    jet_algo, jec_tag, jec_levels, jer_tag, junc_types = get_jerc_keys("2023", isData, chunk_metadata["era"])
-    # json_path = topcoffea_path(f"data/POG/JME/{jec_year}/jet_jerc.json.gz")
+            jec_tag = jec_clib_dict[year]['jec_data'][chunk_metadata["era"]]
 
     # Create JECStack for clib scenario
     jec_stack = JECStack(
@@ -243,22 +65,11 @@ def get_jet_factory_corrlib(chunk_metadata):
         savecorr=False
     )
 
-    # Name map for jet or MET corrections
-    name_map = {
-        'JetPt': 'pt',
-        'JetMass': 'mass',
-        'JetEta': 'eta',
-        'JetPhi': 'phi',
-        'JetA': 'area',
-        'ptGenJet': 'pt_gen',
-        'ptRaw': 'pt_raw',
-        'massRaw': 'mass_raw',
-        'Rho': 'event_rho',
-    }
+    name_map = params["jets_calibration"]["jec_name_map"]
     return CorrectedJetsFactory(name_map, jec_stack)
 
 
-def jet_correction_corrlib(params, events, jets, factory, jet_type, chunk_metadata, cache):
+def jet_correction_corrlib(params, events, jets, jet_type, chunk_metadata, cache):
     # print(type(factory["Data"][jet_type][chunk_metadata["year"]][chunk_metadata["era"]]))
     if chunk_metadata["year"] in ['2016_PreVFP', '2016_PostVFP','2017','2018']:
         rho = events.fixedGridRhoFastjetAll
@@ -266,19 +77,19 @@ def jet_correction_corrlib(params, events, jets, factory, jet_type, chunk_metada
         rho = events.Rho.fixedGridRhoFastjetAll
 
     if chunk_metadata["isMC"]:
-        return get_jet_factory_corrlib(chunk_metadata).build(
+        return get_jet_factory_corrlib(params, jet_type, chunk_metadata).build(
             add_jec_variables(jets, rho, isMC=True), cache
         )
     else:
         # if chunk_metadata["era"] not in factory["Data"][jet_type][chunk_metadata["year"]]:
             # raise Exception(f"Factory for {jet_type} in {chunk_metadata['year']} and era {chunk_metadata['era']} not found. Check your jet calibration files.")
 
-        return get_jet_factory_corrlib(chunk_metadata).build(
+        return get_jet_factory_corrlib(params, jet_type, chunk_metadata).build(
             add_jec_variables(jets, rho, isMC=False), cache
         )
 
 def jet_correction(params, events, jets, factory, jet_type, chunk_metadata, cache):
-    print(type(factory["Data"][jet_type][chunk_metadata["year"]][chunk_metadata["era"]]))
+    # print(type(factory["Data"][jet_type][chunk_metadata["year"]][chunk_metadata["era"]]))
     if chunk_metadata["year"] in ['2016_PreVFP', '2016_PostVFP','2017','2018']:
         rho = events.fixedGridRhoFastjetAll
     else:
@@ -667,3 +478,537 @@ def get_dijet(jets, taggerVars=True, remnant_jet = False):
         return dijet
     else:
         return dijet, remnant
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from copy import deepcopy
+import gzip
+import awkward as ak
+import numpy as np
+import correctionlib
+from correctionlib.schemav2 import Correction, CorrectionSet
+
+
+
+
+def get_jer_correction_set(jer_json, jer_ptres_tag, jer_sf_tag):
+    # learned from: https://github.com/cms-nanoAOD/correctionlib/issues/130
+    with gzip.open(jer_json) as fin:
+        cset = CorrectionSet.parse_raw(fin.read())
+
+    cset.corrections = [
+        c
+        for c in cset.corrections
+        if c.name
+        in (
+            jer_ptres_tag,
+            jer_sf_tag,
+        )
+    ]
+    cset.compound_corrections = []
+
+    res = Correction.parse_obj(
+        {
+            "name": "JERSmear",
+            "description": "Jet smearing tool",
+            "inputs": [
+                {"name": "JetPt", "type": "real"},
+                {"name": "JetEta", "type": "real"},
+                {
+                    "name": "GenPt",
+                    "type": "real",
+                    "description": "matched GenJet pt, or -1 if no match",
+                },
+                {"name": "Rho", "type": "real", "description": "entropy source"},
+                {"name": "EventID", "type": "int", "description": "entropy source"},
+                {
+                    "name": "JER",
+                    "type": "real",
+                    "description": "Jet energy resolution",
+                },
+                {
+                    "name": "JERsf",
+                    "type": "real",
+                    "description": "Jet energy resolution scale factor",
+                },
+            ],
+            "output": {"name": "smear", "type": "real"},
+            "version": 1,
+            "data": {
+                "nodetype": "binning",
+                "input": "GenPt",
+                "edges": [-1, 0, 1],
+                "flow": "clamp",
+                "content": [
+                    # stochastic
+                    {
+                        # rewrite gen_pt with a random gaussian
+                        "nodetype": "transform",
+                        "input": "GenPt",
+                        "rule": {
+                            "nodetype": "hashprng",
+                            "inputs": ["JetPt", "JetEta", "Rho", "EventID"],
+                            "distribution": "normal",
+                        },
+                        "content": {
+                            "nodetype": "formula",
+                            # TODO min jet pt?
+                            "expression": "1+sqrt(max(x*x - 1, 0)) * y * z",
+                            "parser": "TFormula",
+                            # now gen_pt is actually the output of hashprng
+                            "variables": ["JERsf", "JER", "GenPt"],
+                        },
+                    },
+                    # deterministic
+                    {
+                        "nodetype": "formula",
+                        # TODO min jet pt?
+                        "expression": "1+(x-1)*(y-z)/y",
+                        "parser": "TFormula",
+                        "variables": ["JERsf", "JetPt", "GenPt"],
+                    },
+                ],
+            },
+        }
+    )
+    cset.corrections.append(res)
+    ceval = cset.to_evaluator()
+    return ceval
+
+
+def get_jersmear(_eval_dict, _ceval, _jer_sf_tag, _syst="nom"):
+    _eval_dict.update({"systematic": _syst})
+    _inputs_jer_sf = [_eval_dict[input.name] for input in _ceval[_jer_sf_tag].inputs]
+    _jer_sf = _ceval[_jer_sf_tag].evaluate(*_inputs_jer_sf)
+    _eval_dict.update({"JERsf": _jer_sf})
+    _inputs = [_eval_dict[input.name] for input in _ceval["JERSmear"].inputs]
+    _jersmear = _ceval["JERSmear"].evaluate(*_inputs)
+    return _eval_dict, _jersmear
+
+
+def jerc_jet(
+    events,
+    chunk_metadata,
+    params,
+    level="L1L2L3Res",
+    apply_jec=True,
+    jec_syst=False,
+    split_jec_syst=False,
+    apply_jer=False,
+    jer_syst=False,
+    algo="AK4PFPuppi",
+):
+    isMC = chunk_metadata["isMC"]
+    year = chunk_metadata["year"]
+    era = chunk_metadata["era"]
+    jec_clib_dict = params["default_jets_calibration"]["jec_correctionlib"]
+
+    json_path = jec_clib_dict[year]["json_path_new"]
+    jec_levels = jec_clib_dict[year]['jec_levels']
+    jer_tag = None
+    junc_types = None
+    if isMC:
+        jec_tag = jec_clib_dict[year]['jec_mc'] 
+        jer_tag = jec_clib_dict[year]['jer']
+        junc_types = jec_clib_dict[year]['junc']
+    else:
+        # if type(jec_clib_dict[year]['jec_data'])==str:
+        #     jec_tag = jec_clib_dict[year]['jec_data']
+        # else:
+        #     jec_tag = jec_clib_dict[year]['jec_data'][chunk_metadata["era"]]
+        jec_tag = "Summer23Prompt23_V2_DATA"
+    # first, check if it's data or MC
+    if isMC:
+        apply_jer=True,
+    else:
+        apply_jec = True
+        jec_syst = False
+        split_jec_syst = False
+        apply_jer = False
+        jer_syst = False
+
+    # jec_clib_dict = params["default_jets_calibration"]["jec_correctionlib"]
+    # jec json file
+
+    # json_path = jec_clib_dict[year]["json_path"]
+    # jec = jec_version[year][era]
+    tag_jec = "_".join([jec_tag, level, algo])
+
+    # get the correction sets
+    cset = correctionlib.CorrectionSet.from_file(json_path)
+
+    # prepare inputs
+    jets_jagged = deepcopy(events.Jet)
+    counts = ak.num(jets_jagged)
+    # backup of the original nanoaod jet pt, only for once
+    if "pt_nano" not in jets_jagged.fields:
+        jets_jagged["pt_nano"] = jets_jagged.pt
+        jets_jagged["mass_nano"] = jets_jagged.mass
+    # store the raw jet pt, only for once
+    if "pt_raw" not in jets_jagged.fields:
+        jets_jagged["pt_raw"] = jets_jagged.pt * (1 - jets_jagged.rawFactor)
+        jets_jagged["mass_raw"] = jets_jagged.mass * (1 - jets_jagged.rawFactor)
+    # avoid using hasattr(jets_jagged, "rho"). Same name as the coffea vector property of rho: https://github.com/CoffeaTeam/coffea/blob/0e43daf8e40ccec44efb2622777354ebd0424b84/src/coffea/nanoevents/methods/vector.py#L482
+    if "rho_value" not in jets_jagged.fields:
+        try:
+            jets_jagged["rho_value"] = (
+                ak.ones_like(jets_jagged.pt) * events.Rho.fixedGridRhoFastjetAll
+            )
+        except:
+            # UL datasets have different naming convention
+            jets_jagged["rho_value"] = (
+                ak.ones_like(jets_jagged.pt) * events.fixedGridRhoFastjetAll
+            )
+    # create the gen_matched pt, only for once
+    if ("pt_gen" not in jets_jagged.fields) and (apply_jer or jer_syst):
+        # TODO: finalize the gen-matching algorithms
+        # current follow coffea example: https://github.com/CoffeaTeam/coffea/blob/16db8f663e40dafd2399d32862c20e3faa5542be/binder/applying_corrections.ipynb#L423
+        jets_jagged["pt_gen"] = ak.fill_none(jets_jagged.matched_gen.pt, -99999)
+    # create the eventid, only for once
+    if ("event_id" not in jets_jagged.fields) and (apply_jer or jer_syst):
+        jets_jagged["event_id"] = ak.ones_like(jets_jagged.pt) * events.event
+    print(events.run)
+    if ("run_nr" not in jets_jagged.fields):
+        jets_jagged["run_nr"] = ak.ones_like(jets_jagged.pt) * events.run
+
+    # flatten
+
+    jets = ak.flatten(jets_jagged)
+    # evaluate dictionary
+    eval_dict = {
+        "JetPt": jets.pt_raw,
+        "JetEta": jets.eta,
+        "JetPhi": jets.phi,
+        "Rho": jets.rho_value,
+        "JetA": jets.area,
+        "run": jets.run_nr
+    }
+
+    # jec central
+    if apply_jec:
+        # get the correction
+        if tag_jec in list(cset.compound.keys()):
+            sf = cset.compound[tag_jec]
+        elif tag_jec in list(cset.keys()):
+            sf = cset[tag_jec]
+        else:
+            print(tag_jec, list(cset.keys()), list(cset.compound.keys()))
+            raise Exception(f"[No JEC correction: {tag_jec} - Year: {year} - Era: {era} - Level: {level}")
+        inputs = [eval_dict[input.name] for input in sf.inputs]
+        sf_value = sf.evaluate(*inputs)
+        jets["pt_jec"] = sf_value * jets["pt_raw"]
+        jets["mass_jec"] = sf_value * jets["mass_raw"]
+        # update the nominal pt and mass
+        jets["pt"] = jets["pt_jec"]
+        jets["mass"] = jets["mass_jec"]
+
+    # jer central and systematics
+    if apply_jer or jer_syst:
+        # learned from: https://github.com/cms-nanoAOD/correctionlib/issues/130
+
+        jer_ptres_tag = f"{jer_tag}_PtResolution_{algo}"
+        jer_sf_tag = f"{jer_tag}_ScaleFactor_{algo}"
+
+        ceval_jer = get_jer_correction_set(json_path, jer_ptres_tag, jer_sf_tag)
+        # update evaluate dictionary
+        eval_dict.update(
+            {
+                "JetPt": jets.pt,
+                "GenPt": jets.pt_gen,
+                "EventID": jets.event_id,
+            }
+        )
+        # get jer pt resolution
+        inputs_jer_ptres = [
+            eval_dict[input.name] for input in ceval_jer[jer_ptres_tag].inputs
+        ]
+        jer_ptres = ceval_jer[jer_ptres_tag].evaluate(*inputs_jer_ptres)
+        # update evaluate dictionary
+        eval_dict.update({"JER": jer_ptres})
+        # addjust pt gen
+        eval_dict.update(
+            {
+                "GenPt": np.where(
+                    np.abs(eval_dict["JetPt"] - eval_dict["GenPt"])
+                    < 3 * eval_dict["JetPt"] * eval_dict["JER"],
+                    eval_dict["GenPt"],
+                    -1.0,
+                ),
+            }
+        )
+        if apply_jer:
+            eval_dict, jersmear = get_jersmear(eval_dict, ceval_jer, jer_sf_tag, "nom")
+            jets["pt_jer"] = jets.pt * jersmear
+            jets["mass_jer"] = jets.mass * jersmear
+        if jer_syst:
+            # jer up
+            eval_dict, jersmear = get_jersmear(eval_dict, ceval_jer, jer_sf_tag, "up")
+            jets["pt_jer_syst_up"] = jets.pt * jersmear
+            jets["mass_jer_syst_up"] = jets.mass * jersmear
+            # jer down
+            eval_dict, jersmear = get_jersmear(eval_dict, ceval_jer, jer_sf_tag, "down")
+            jets["pt_jer_syst_down"] = jets.pt * jersmear
+            jets["mass_jer_syst_down"] = jets.mass * jersmear
+        if apply_jer:
+            # to avoid the sf: jer*jer_up or jer*jer_down, update the jer pt/mass after calculation of the jer up/down
+            jets["pt"] = jets["pt_jer"]
+            jets["mass"] = jets["mass_jer"]
+
+    # jec systematics
+    if jec_syst:
+        # update evaluate dictionary
+        eval_dict.update({"JetPt": jets.pt})
+        if not split_jec_syst:
+            # get the total uncertainty
+            tag_jec_syst = "_".join([jec_tag, "Total", algo])
+            try:
+                sf = cset[tag_jec_syst]
+            except:
+                raise Exception(
+                    f"[ jerc_jet ] No JEC systematic: {tag_jec_syst} - Year: {year} - Era: {era}"
+                )
+            # systematics
+            inputs = [eval_dict[input.name] for input in sf.inputs]
+            sf_delta = sf.evaluate(*inputs)
+
+            # divide by correction since it is already applied before
+            corr_up_variation = 1 + sf_delta
+            corr_down_variation = 1 - sf_delta
+
+            jets["pt_jec_syst_Total_up"] = jets.pt * corr_up_variation
+            jets["pt_jec_syst_Total_down"] = jets.pt * corr_down_variation
+            jets["mass_jec_syst_Total_up"] = jets.mass * corr_up_variation
+            jets["mass_jec_syst_Total_down"] = jets.mass * corr_down_variation
+        else:
+            jec_syst_regrouped = {
+                "2016_PreVFP": {
+                    # regrouped jec uncertainty
+                    "jec_syst_Absolute_2016": "Regrouped_Absolute_2016",
+                    "jec_syst_Absolute": "Regrouped_Absolute",
+                    "jec_syst_BBEC1_2016": "Regrouped_BBEC1_2016",
+                    "jec_syst_BBEC1": "Regrouped_BBEC1",
+                    "jec_syst_EC2_2016": "Regrouped_EC2_2016",
+                    "jec_syst_EC2": "Regrouped_EC2",
+                    "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
+                    "jec_syst_HF_2016": "Regrouped_HF_2016",
+                    "jec_syst_HF": "Regrouped_HF",
+                    "jec_syst_RelativeBal": "Regrouped_Absolute",
+                    "jec_syst_RelativeSample_2016": "Regrouped_RelativeSample_2016",
+                    # total regrouped jec uncertainty
+                    "jec_syst_Regrouped_Total": "Regrouped_Total",
+                },
+                "2016_PostVFP": {
+                    # regrouped jec uncertainty
+                    "jec_syst_Absolute_2016": "Regrouped_Absolute_2016",
+                    "jec_syst_Absolute": "Regrouped_Absolute",
+                    "jec_syst_BBEC1_2016": "Regrouped_BBEC1_2016",
+                    "jec_syst_BBEC1": "Regrouped_BBEC1",
+                    "jec_syst_EC2_2016": "Regrouped_EC2_2016",
+                    "jec_syst_EC2": "Regrouped_EC2",
+                    "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
+                    "jec_syst_HF_2016": "Regrouped_HF_2016",
+                    "jec_syst_HF": "Regrouped_HF",
+                    "jec_syst_RelativeBal": "Regrouped_Absolute",
+                    "jec_syst_RelativeSample_2016": "Regrouped_RelativeSample_2016",
+                    # total regrouped jec uncertainty
+                    "jec_syst_Regrouped_Total": "Regrouped_Total",
+                },
+                "2017": {
+                    # regrouped jec uncertainty
+                    "jec_syst_Absolute_2017": "Regrouped_Absolute_2017",
+                    "jec_syst_Absolute": "Regrouped_Absolute",
+                    "jec_syst_BBEC1_2017": "Regrouped_BBEC1_2017",
+                    "jec_syst_BBEC1": "Regrouped_BBEC1",
+                    "jec_syst_EC2_2017": "Regrouped_EC2_2017",
+                    "jec_syst_EC2": "Regrouped_EC2",
+                    "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
+                    "jec_syst_HF_2017": "Regrouped_HF_2017",
+                    "jec_syst_HF": "Regrouped_HF",
+                    "jec_syst_RelativeBal": "Regrouped_Absolute",
+                    "jec_syst_RelativeSample_2017": "Regrouped_RelativeSample_2017",
+                    # total regrouped jec uncertainty
+                    "jec_syst_Regrouped_Total": "Regrouped_Total",
+                },
+                "2018": {
+                    # regrouped jec uncertainty
+                    "jec_syst_Absolute_2018": "Regrouped_Absolute_2018",
+                    "jec_syst_Absolute": "Regrouped_Absolute",
+                    "jec_syst_BBEC1_2018": "Regrouped_BBEC1_2018",
+                    "jec_syst_BBEC1": "Regrouped_BBEC1",
+                    "jec_syst_EC2_2018": "Regrouped_EC2_2018",
+                    "jec_syst_EC2": "Regrouped_EC2",
+                    "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
+                    "jec_syst_HF_2018": "Regrouped_HF_2018",
+                    "jec_syst_HF": "Regrouped_HF",
+                    "jec_syst_RelativeBal": "Regrouped_Absolute",
+                    "jec_syst_RelativeSample_2018": "Regrouped_RelativeSample_2018",
+                    # total regrouped jec uncertainty
+                    "jec_syst_Regrouped_Total": "Regrouped_Total",
+                },
+                "2022_preEE": {
+                    "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
+                    "jec_syst_AbsoluteScale": "AbsoluteScale",
+                    "jec_syst_AbsoluteStat": "AbsoluteStat",
+                    "jec_syst_FlavorQCD": "FlavorQCD",
+                    "jec_syst_Fragmentation": "Fragmentation",
+                    "jec_syst_PileUpDataMC": "PileUpDataMC",
+                    "jec_syst_PileUpPtBB": "PileUpPtBB",
+                    "jec_syst_PileUpPtEC1": "PileUpPtEC1",
+                    "jec_syst_PileUpPtEC2": "PileUpPtEC2",
+                    "jec_syst_PileUpPtHF": "PileUpPtHF",
+                    "jec_syst_PileUpPtRef": "PileUpPtRef",
+                    "jec_syst_RelativeFSR": "RelativeFSR",
+                    "jec_syst_RelativeJEREC1": "RelativeJEREC1",
+                    "jec_syst_RelativeJEREC2": "RelativeJEREC2",
+                    "jec_syst_RelativeJERHF": "RelativeJERHF",
+                    "jec_syst_RelativePtBB": "RelativePtBB",
+                    "jec_syst_RelativePtEC1": "RelativePtEC1",
+                    "jec_syst_RelativePtEC2": "RelativePtEC2",
+                    "jec_syst_RelativePtHF": "RelativePtHF",
+                    "jec_syst_RelativeBal": "RelativeBal",
+                    "jec_syst_RelativeSample": "RelativeSample",
+                    "jec_syst_RelativeStatEC": "RelativeStatEC",
+                    "jec_syst_RelativeStatFSR": "RelativeStatFSR",
+                    "jec_syst_RelativeStatHF": "RelativeStatHF",
+                    "jec_syst_SinglePionECAL": "SinglePionECAL",
+                    "jec_syst_SinglePionHCAL": "SinglePionHCAL",
+                    "jec_syst_TimePtEta": "TimePtEta",
+                    "jec_syst_Total": "Total",
+                },
+                "2022_postEE": {
+                    "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
+                    "jec_syst_AbsoluteScale": "AbsoluteScale",
+                    "jec_syst_AbsoluteStat": "AbsoluteStat",
+                    "jec_syst_FlavorQCD": "FlavorQCD",
+                    "jec_syst_Fragmentation": "Fragmentation",
+                    "jec_syst_PileUpDataMC": "PileUpDataMC",
+                    "jec_syst_PileUpPtBB": "PileUpPtBB",
+                    "jec_syst_PileUpPtEC1": "PileUpPtEC1",
+                    "jec_syst_PileUpPtEC2": "PileUpPtEC2",
+                    "jec_syst_PileUpPtHF": "PileUpPtHF",
+                    "jec_syst_PileUpPtRef": "PileUpPtRef",
+                    "jec_syst_RelativeFSR": "RelativeFSR",
+                    "jec_syst_RelativeJEREC1": "RelativeJEREC1",
+                    "jec_syst_RelativeJEREC2": "RelativeJEREC2",
+                    "jec_syst_RelativeJERHF": "RelativeJERHF",
+                    "jec_syst_RelativePtBB": "RelativePtBB",
+                    "jec_syst_RelativePtEC1": "RelativePtEC1",
+                    "jec_syst_RelativePtEC2": "RelativePtEC2",
+                    "jec_syst_RelativePtHF": "RelativePtHF",
+                    "jec_syst_RelativeBal": "RelativeBal",
+                    "jec_syst_RelativeSample": "RelativeSample",
+                    "jec_syst_RelativeStatEC": "RelativeStatEC",
+                    "jec_syst_RelativeStatFSR": "RelativeStatFSR",
+                    "jec_syst_RelativeStatHF": "RelativeStatHF",
+                    "jec_syst_SinglePionECAL": "SinglePionECAL",
+                    "jec_syst_SinglePionHCAL": "SinglePionHCAL",
+                    "jec_syst_TimePtEta": "TimePtEta",
+                    "jec_syst_Total": "Total",
+                },
+                "2023_preBPix": {
+                    "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
+                    "jec_syst_AbsoluteScale": "AbsoluteScale",
+                    "jec_syst_AbsoluteStat": "AbsoluteStat",
+                    "jec_syst_FlavorQCD": "FlavorQCD",
+                    "jec_syst_Fragmentation": "Fragmentation",
+                    "jec_syst_PileUpDataMC": "PileUpDataMC",
+                    "jec_syst_PileUpPtBB": "PileUpPtBB",
+                    "jec_syst_PileUpPtEC1": "PileUpPtEC1",
+                    "jec_syst_PileUpPtEC2": "PileUpPtEC2",
+                    "jec_syst_PileUpPtHF": "PileUpPtHF",
+                    "jec_syst_PileUpPtRef": "PileUpPtRef",
+                    "jec_syst_RelativeFSR": "RelativeFSR",
+                    "jec_syst_RelativeJEREC1": "RelativeJEREC1",
+                    "jec_syst_RelativeJEREC2": "RelativeJEREC2",
+                    "jec_syst_RelativeJERHF": "RelativeJERHF",
+                    "jec_syst_RelativePtBB": "RelativePtBB",
+                    "jec_syst_RelativePtEC1": "RelativePtEC1",
+                    "jec_syst_RelativePtEC2": "RelativePtEC2",
+                    "jec_syst_RelativePtHF": "RelativePtHF",
+                    "jec_syst_RelativeBal": "RelativeBal",
+                    "jec_syst_RelativeSample": "RelativeSample",
+                    "jec_syst_RelativeStatEC": "RelativeStatEC",
+                    "jec_syst_RelativeStatFSR": "RelativeStatFSR",
+                    "jec_syst_RelativeStatHF": "RelativeStatHF",
+                    "jec_syst_SinglePionECAL": "SinglePionECAL",
+                    "jec_syst_SinglePionHCAL": "SinglePionHCAL",
+                    "jec_syst_TimePtEta": "TimePtEta",
+                    "jec_syst_Total": "Total",
+                },
+                "2023_postBPix": {
+                    "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
+                    "jec_syst_AbsoluteScale": "AbsoluteScale",
+                    "jec_syst_AbsoluteStat": "AbsoluteStat",
+                    "jec_syst_FlavorQCD": "FlavorQCD",
+                    "jec_syst_Fragmentation": "Fragmentation",
+                    "jec_syst_PileUpDataMC": "PileUpDataMC",
+                    "jec_syst_PileUpPtBB": "PileUpPtBB",
+                    "jec_syst_PileUpPtEC1": "PileUpPtEC1",
+                    "jec_syst_PileUpPtEC2": "PileUpPtEC2",
+                    "jec_syst_PileUpPtHF": "PileUpPtHF",
+                    "jec_syst_PileUpPtRef": "PileUpPtRef",
+                    "jec_syst_RelativeFSR": "RelativeFSR",
+                    "jec_syst_RelativeJEREC1": "RelativeJEREC1",
+                    "jec_syst_RelativeJEREC2": "RelativeJEREC2",
+                    "jec_syst_RelativeJERHF": "RelativeJERHF",
+                    "jec_syst_RelativePtBB": "RelativePtBB",
+                    "jec_syst_RelativePtEC1": "RelativePtEC1",
+                    "jec_syst_RelativePtEC2": "RelativePtEC2",
+                    "jec_syst_RelativePtHF": "RelativePtHF",
+                    "jec_syst_RelativeBal": "RelativeBal",
+                    "jec_syst_RelativeSample": "RelativeSample",
+                    "jec_syst_RelativeStatEC": "RelativeStatEC",
+                    "jec_syst_RelativeStatFSR": "RelativeStatFSR",
+                    "jec_syst_RelativeStatHF": "RelativeStatHF",
+                    "jec_syst_SinglePionECAL": "SinglePionECAL",
+                    "jec_syst_SinglePionHCAL": "SinglePionHCAL",
+                    "jec_syst_TimePtEta": "TimePtEta",
+                    "jec_syst_Total": "Total",
+                },
+            }
+            for i in jec_syst_regrouped[year]:
+                # get the total uncertainty
+                tag_jec_syst = "_".join([jec_tag, jec_syst_regrouped[year][i], algo])
+                try:
+                    sf = cset[tag_jec_syst]
+                except:
+                    raise Exception(
+                        f"[ jerc_jet ] No JEC systematic: {tag_jec_syst} - Year: {year} - Era: {era}"
+                    )
+                # systematics
+                inputs = [eval_dict[input.name] for input in sf.inputs]
+                sf_delta = sf.evaluate(*inputs)
+
+                # divide by correction since it is already applied before
+                corr_up_variation = 1 + sf_delta
+                corr_down_variation = 1 - sf_delta
+
+                jets[f"pt_{i}_up"] = jets.pt * corr_up_variation
+                jets[f"pt_{i}_down"] = jets.pt * corr_down_variation
+                jets[f"mass_{i}_up"] = jets.mass * corr_up_variation
+                jets[f"mass_{i}_down"] = jets.mass * corr_down_variation
+    jets_jagged = ak.unflatten(jets, counts)
+    # events.Jet = jets_jagged
+    return jets_jagged
