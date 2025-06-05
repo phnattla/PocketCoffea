@@ -17,7 +17,7 @@ from coffea.analysis_tools import PackedSelection
 from ..lib.weights.weights_manager import WeightsManager
 from ..lib.columns_manager import ColumnsManager
 from ..lib.hist_manager import HistManager
-from ..lib.jets import jet_correction, met_correction_after_jec, load_jet_factory
+from ..lib.jets import jet_correction, met_correction_after_jec, load_jet_factory, jet_correction_corrlib, jerc_jet
 from ..lib.leptons import get_ele_smeared, get_ele_scaled
 from ..lib.categorization import CartesianSelection
 from ..utils.skim import uproot_writeable, copy_file
@@ -663,6 +663,7 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
 
         # Calibrating Jets: only the ones in the jet_types in the params.jet_calibration config
         jets_calibrated = {}
+        # jets_calibrated_2 = {}
         caches = []
         jet_calib_params= self.params.jets_calibration
         # Only apply JEC if variations are asked or if the nominal JEC is requested
@@ -673,11 +674,31 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     continue
                 cache = cachetools.Cache(np.inf)
                 caches.append(cache)
-                jets_calibrated[jet_coll_name] = jet_correction(
+                print(jet_coll_name)
+                print(nominal_events[jet_coll_name].pt)
+                jets_calibrated_DNA = jerc_jet(
+                    events=nominal_events,
+                    chunk_metadata={
+                        "year": self._year,
+                        "isMC": self._isMC,
+                        "era": self._era,
+                    },
+                    params=self.params,
+                    level="L1L2L3Res",
+                    apply_jec=True,
+                    jec_syst=False,
+                    split_jec_syst=False,
+                    apply_jer=False,
+                    jer_syst=False,
+                    algo=jet_type,
+                )
+                print("DNA", jets_calibrated_DNA.pt)
+                jets_calibrated[jet_coll_name] = jet_correction_corrlib(
+                # jets_calibrated[jet_coll_name] = jet_correction(
                     params=self.params,
                     events=nominal_events,
                     jets=nominal_events[jet_coll_name],
-                    factory=self.jmefactory,
+                    # factory=self.jmefactory,
                     jet_type = jet_type,
                     chunk_metadata={
                         "year": self._year,
@@ -686,6 +707,23 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     },
                     cache=cache
                 )
+                print(jets_calibrated[jet_coll_name].pt)
+                # jets_calibrated_old = jet_correction(
+                #     params=self.params,
+                #     events=nominal_events,
+                #     jets=nominal_events[jet_coll_name],
+                #     factory=self.jmefactory,
+                #     jet_type = jet_type,
+                #     chunk_metadata={
+                #         "year": self._year,
+                #         "isMC": self._isMC,
+                #         "era": self._era,
+                #     },
+                #     cache=cache
+                # )
+                # print(jets_calibrated_old.pt)
+
+                # )
 
         for variation in variations:
             # BIG assumption:
