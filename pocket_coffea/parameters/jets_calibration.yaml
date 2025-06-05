@@ -417,14 +417,13 @@ default_jets_calibration:
       junc: "${default_jets_calibration.jec_correctionlib.2022_preEE.junc}"
 
     2023_preBPix:
-      json_path_new: "${default_params_dir:}/jec/Summer23/jet_jerc.json.gz"
       json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2023_Summer23/jet_jerc.json.gz"
       jec_mc: Summer23Prompt23_V1_MC
-      jec_data:
-        Cv1: Summer23Prompt23_RunCv123_V1_DATA
-        Cv2: "${default_jets_calibration.jec_correctionlib.2023_preBPix.jec_data.Cv1}"
-        Cv3: "${default_jets_calibration.jec_correctionlib.2023_preBPix.jec_data.Cv1}"
-        Cv4: Summer23Prompt23_RunCv4_V1_DATA
+      jec_data: Summer23Prompt23_V2_DATA
+        # Cv1: Summer23Prompt23_RunCv123_V1_DATA
+        # Cv2: "${default_jets_calibration.jec_correctionlib.2023_preBPix.jec_data.Cv1}"
+        # Cv3: "${default_jets_calibration.jec_correctionlib.2023_preBPix.jec_data.Cv1}"
+        # Cv4: Summer23Prompt23_RunCv4_V1_DATA
       jec_levels: "${default_jets_calibration.jec_correctionlib.2022_preEE.jec_levels}"
       jer: Summer23Prompt23_RunCv1234_JRV1_MC
       junc: "${default_jets_calibration.jec_correctionlib.2022_preEE.junc}"

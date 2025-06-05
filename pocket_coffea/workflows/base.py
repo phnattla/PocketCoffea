@@ -674,8 +674,7 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     continue
                 cache = cachetools.Cache(np.inf)
                 caches.append(cache)
-                print(jet_coll_name)
-                print(nominal_events[jet_coll_name].pt)
+                print("Jet pt from Nano:", nominal_events[jet_coll_name].pt)
                 jets_calibrated_DNA = jerc_jet(
                     events=nominal_events,
                     chunk_metadata={
@@ -692,7 +691,7 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     jer_syst=False,
                     algo=jet_type,
                 )
-                print("DNA", jets_calibrated_DNA.pt)
+                print("jet pt after JEC from HiggsDNA", jets_calibrated_DNA.pt)
                 jets_calibrated[jet_coll_name] = jet_correction_corrlib(
                 # jets_calibrated[jet_coll_name] = jet_correction(
                     params=self.params,
@@ -707,7 +706,7 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     },
                     cache=cache
                 )
-                print(jets_calibrated[jet_coll_name].pt)
+                print("jet pt affter JEC from coffea corrlib", jets_calibrated[jet_coll_name].pt)
                 # jets_calibrated_old = jet_correction(
                 #     params=self.params,
                 #     events=nominal_events,

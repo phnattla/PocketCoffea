@@ -17,8 +17,6 @@ def add_jec_variables(jets, event_rho, isMC=True):
     jets["event_rho"] = ak.broadcast_arrays(event_rho, jets.pt)[0]
     if isMC:
         jets["pt_gen"] = ak.values_astype(ak.fill_none(jets.matched_gen.pt, 0), np.float32)
-    print(jets.pt_raw)
-    print(jets.rawFactor)
     return jets
 
 def load_jet_factory(params):
@@ -625,7 +623,7 @@ def jerc_jet(
     era = chunk_metadata["era"]
     jec_clib_dict = params["default_jets_calibration"]["jec_correctionlib"]
 
-    json_path = jec_clib_dict[year]["json_path_new"]
+    json_path = jec_clib_dict[year]["json_path"]
     jec_levels = jec_clib_dict[year]['jec_levels']
     jer_tag = None
     junc_types = None
@@ -634,11 +632,11 @@ def jerc_jet(
         jer_tag = jec_clib_dict[year]['jer']
         junc_types = jec_clib_dict[year]['junc']
     else:
-        # if type(jec_clib_dict[year]['jec_data'])==str:
-        #     jec_tag = jec_clib_dict[year]['jec_data']
-        # else:
-        #     jec_tag = jec_clib_dict[year]['jec_data'][chunk_metadata["era"]]
-        jec_tag = "Summer23Prompt23_V2_DATA"
+        if type(jec_clib_dict[year]['jec_data'])==str:
+            jec_tag = jec_clib_dict[year]['jec_data']
+        else:
+            jec_tag = jec_clib_dict[year]['jec_data'][chunk_metadata["era"]]
+        # jec_tag = "Summer23Prompt23_V2_DATA"
     # first, check if it's data or MC
     if isMC:
         apply_jer=True,
@@ -689,7 +687,6 @@ def jerc_jet(
     # create the eventid, only for once
     if ("event_id" not in jets_jagged.fields) and (apply_jer or jer_syst):
         jets_jagged["event_id"] = ak.ones_like(jets_jagged.pt) * events.event
-    print(events.run)
     if ("run_nr" not in jets_jagged.fields):
         jets_jagged["run_nr"] = ak.ones_like(jets_jagged.pt) * events.run
 
