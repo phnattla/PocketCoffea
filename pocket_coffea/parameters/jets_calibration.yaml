@@ -227,7 +227,7 @@ default_jets_calibration:
           - "${default_params_dir:}/jec/Summer22EE/Summer22EE_22Sep2023_V2_MC_Uncertainty_AK4PFPuppi.junc.txt.gz"
           - "${default_params_dir:}/jec/Summer22EE/Summer22EEPrompt22_JRV1_MC_PtResolution_AK4PFPuppi.jr.txt.gz"
           - "${default_params_dir:}/jec/Summer22EE/Summer22EEPrompt22_JRV1_MC_SF_AK4PFPuppi.jersf.txt.gz"
-          
+
         2023_preBPix:
           - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_L1FastJet_AK4PFPuppi.jec.txt.gz"
           - "${default_params_dir:}/jec/Summer23/Summer23Prompt23_V1_MC_L2Relative_AK4PFPuppi.jec.txt.gz"
@@ -246,6 +246,25 @@ default_jets_calibration:
 
   ########################## Data ########################################
   factory_configuration_Data:
+    AK4PFchs:
+      JES:
+        "2018":
+          A:
+            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+          B:
+            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+          C:
+            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+          D:
+            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
     AK4PFPuppi:
       JES:
         2022_preEE:
@@ -288,6 +307,136 @@ default_jets_calibration:
             - "${default_params_dir:}/jec/Summer23BPix/Summer23BPixPrompt23_RunD_V1_DATA_L1FastJet_AK4PFPuppi.txt.gz"
             - "${default_params_dir:}/jec/Summer23BPix/Summer23BPixPrompt23_RunD_V1_DATA_L2Relative_AK4PFPuppi.txt.gz"
             - "${default_params_dir:}/jec/Summer23BPix/Summer23BPixPrompt23_RunD_V1_DATA_L2L3Residual_AK4PFPuppi.txt.gz"
+  jec_correctionlib:
+    2016_PreVFP:
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json.gz"
+      jec_mc: Summer19UL16_V7_MC
+      jec_data: Summer19UL16_RunFGH_V7_DATA
+      jec_levels:
+        - L1FastJet
+        - L2Relative
+      jer: Summer20UL16_JRV3_MC
+      junc:
+        - FlavorQCD
+        - FlavorPureBottom
+        - FlavorPureQuark
+        - FlavorPureGluon
+        - FlavorPureCharm
+        - Regrouped_BBEC1
+        - Regrouped_Absolute
+        - Regrouped_RelativeBal
+        - RelativeSample
+
+    2016_PostVFP:
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2016postVFP_UL/jet_jerc.json.gz"
+      jec_mc: Summer19UL16APV_V7_MC
+      jec_data:
+        B: Summer19UL16APV_RunBCD_V7_DATA
+        C: "${default_jets_calibration.jec_correctionlib.2016_PostVFP.jec_data.B}"
+        D: "${default_jets_calibration.jec_correctionlib.2016_PostVFP.jec_data.B}"
+        E: Summer19UL16APV_RunEF_V7_DATA
+        F: "${default_jets_calibration.jec_correctionlib.2016_PostVFP.jec_data.E}"
+      jec_levels: "${default_jets_calibration.jec_correctionlib.2016_PreVFP.jec_levels}"
+      jer: Summer20UL16APV_JRV3_MC
+      junc: "${default_jets_calibration.jec_correctionlib.2016_PreVFP.junc}"
+
+    "2017":
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"
+      jec_mc: Summer19UL17_V5_MC
+      jec_data:
+        B: Summer19UL17_RunB_V5_DATA
+        C: Summer19UL17_RunC_V5_DATA
+        D: Summer19UL17_RunD_V5_DATA
+        E: Summer19UL17_RunE_V5_DATA
+        F: Summer19UL17_RunF_V5_DATA
+      jec_levels: "${default_jets_calibration.jec_correctionlib.2016_PreVFP.jec_levels}"
+      jer: Summer19UL17_JRV2_MC
+      junc: "${default_jets_calibration.jec_correctionlib.2016_PreVFP.junc}"
+
+    "2018":
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"
+      jec_mc: Summer19UL18_V5_MC
+      jec_data:
+        A: Summer19UL18_RunA_V5_DATA
+        B: Summer19UL18_RunB_V5_DATA
+        C: Summer19UL18_RunC_V5_DATA
+        D: Summer19UL18_RunD_V5_DATA
+      jec_levels: "${default_jets_calibration.jec_correctionlib.2016_PreVFP.jec_levels}"
+      jer: Summer19UL18_JRV2_MC
+      junc: "${default_jets_calibration.jec_correctionlib.2016_PreVFP.junc}"
+
+    2022_preEE:
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2022_Summer22/jet_jerc.json.gz"
+      jec_mc: Summer22_22Sep2023_V2_MC
+      jec_data: Summer22_22Sep2023_RunCD_V2_DATA
+      jec_levels:
+        - L1FastJet
+        - L2Relative
+        - L3Absolute
+        - L2L3Residual
+      jer: Summer22_22Sep2023_JRV1_MC
+      junc:
+        - AbsoluteMPFBias
+        - AbsoluteScale
+        - FlavorQCD
+        - Fragmentation
+        - PileUpDataMC
+        - PileUpPtBB
+        - PileUpPtEC1
+        - PileUpPtEC2
+        - PileUpPtHF
+        - PileUpPtRef
+        - RelativeFSR
+        - RelativeJERHF
+        - RelativePtBB
+        - RelativePtHF
+        - RelativeBal
+        - SinglePionECAL
+        - SinglePionHCAL
+        - AbsoluteStat
+        - RelativeJEREC1
+        - RelativeJEREC2
+        - RelativePtEC1
+        - RelativePtEC2
+        - TimePtEta
+        - RelativeSample
+        - RelativeStatEC
+        - RelativeStatFSR
+        - RelativeStatHF
+        - Total
+
+    2022_postEE:
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2022_Summer22EE/jet_jerc.json.gz"
+      jec_mc: Summer22EE_22Sep2023_V2_MC
+      jec_data:
+        E: Summer22EE_22Sep2023_RunE_V2_DATA
+        F: Summer22EE_22Sep2023_RunF_V2_DATA
+        G: Summer22EE_22Sep2023_RunG_V2_DATA
+      jec_levels: "${default_jets_calibration.jec_correctionlib.2022_preEE.jec_levels}"
+      jer: Summer22EE_22Sep2023_JRV1_MC
+      junc: "${default_jets_calibration.jec_correctionlib.2022_preEE.junc}"
+
+    2023_preBPix:
+      json_path_new: "${default_params_dir:}/jec/Summer23/jet_jerc.json.gz"
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2023_Summer23/jet_jerc.json.gz"
+      jec_mc: Summer23Prompt23_V1_MC
+      jec_data:
+        Cv1: Summer23Prompt23_RunCv123_V1_DATA
+        Cv2: "${default_jets_calibration.jec_correctionlib.2023_preBPix.jec_data.Cv1}"
+        Cv3: "${default_jets_calibration.jec_correctionlib.2023_preBPix.jec_data.Cv1}"
+        Cv4: Summer23Prompt23_RunCv4_V1_DATA
+      jec_levels: "${default_jets_calibration.jec_correctionlib.2022_preEE.jec_levels}"
+      jer: Summer23Prompt23_RunCv1234_JRV1_MC
+      junc: "${default_jets_calibration.jec_correctionlib.2022_preEE.junc}"
+
+    2023_postBPix:
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2023_Summer23BPix/jet_jerc.json.gz"
+      jec_mc: Summer23BPixPrompt23_V1_MC
+      jec_data: Summer23BPixPrompt23_RunD_V1_DATA
+      jec_levels: "${default_jets_calibration.jec_correctionlib.2022_preEE.jec_levels}"
+      jer: Summer23BPixPrompt23_RunD_JRV1_MC
+      junc: "${default_jets_calibration.jec_correctionlib.2022_preEE.junc}"
+
 
 
 #####################################################################################
@@ -303,6 +452,7 @@ jets_calibration:
       AK4PFPuppi: "${default_jets_calibration.factory_configuration_MC.AK4PFPuppi.JES_JER_Syst}" 
       AK8PFPuppi: "${default_jets_calibration.factory_configuration_MC.AK8PFPuppi.JES_JER_Syst}"
     Data:
+      AK4PFchs: "${default_jets_calibration.factory_configuration_Data.AK4PFchs.JES}" 
       AK4PFPuppi: "${default_jets_calibration.factory_configuration_Data.AK4PFPuppi.JES}" 
     
   collection:  # this is needed to know which collection is corrected with which jet factory
@@ -317,7 +467,7 @@ jets_calibration:
       AK8PFPuppi: "FatJet"
     "2018":
       AK4PFchs: "Jet"
-      AK8PFPuppi: "FatJet"
+      # AK8PFPuppi: "FatJet"
     2022_preEE:
       AK4PFPuppi: "Jet"
       #AK8PFPuppi: "FatJet"
@@ -333,6 +483,7 @@ jets_calibration:
     
   jec_name_map_MC: "${default_jets_calibration.jec_name_map_MC}"
   jec_name_map_Data: "${default_jets_calibration.jec_name_map_Data}"
+  jec_name_map: "${default_jets_calibration.jec_name_map_MC}" # the MC map contains all keys that are in the DATA map, so only this is needed
   apply_jec_nominal:  # this is needed to know which collection is corrected with which jet factory
     2016_PreVFP: False
     2016_PostVFP: False
