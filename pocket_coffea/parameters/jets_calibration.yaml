@@ -482,8 +482,7 @@ jets_calibration:
     
   jec_name_map_MC: "${default_jets_calibration.jec_name_map_MC}"
   jec_name_map_Data: "${default_jets_calibration.jec_name_map_Data}"
-  jec_name_map: "${default_jets_calibration.jec_name_map_MC}" # the MC map contains all keys that are in the DATA map, so only this is needed
-  apply_jec_nominal:  # this is needed to know which collection is corrected with which jet factory
+  apply_jec_nominal:
     2016_PreVFP: False
     2016_PostVFP: False
     "2017": False

@@ -67,11 +67,14 @@ def run(cfg,  custom_run_options, outputdir, test, limit_files,
         config = cloudpickle.load(open(cfg,"rb"))
         if not config.loaded:
             config.load()
-        config.save_config(outputdir) 
+        config.save_config(outputdir)
+        rprint("[italic]The configuration file is saved at {outputdir} [/]")
     else:
         raise sys.exit("Please provide a .py/.pkl configuration file")
 
-    rprint(config)
+    #if len(config)>100: # len() does not work. Not sure how else once could check how big is the config
+    print(f"The config is too big to print to stdout... Look inside {outputdir} instead.")
+    #rprint(config)
     
     # Now loading the executor or from the set of predefined ones, or from the
     # user defined script
@@ -267,11 +270,14 @@ def run(cfg,  custom_run_options, outputdir, test, limit_files,
             # Adding the remaining datasets that were not grouped
             for dataset, files in filesets_to_group.items():
                 filesets_groups[dataset] = {dataset:files}
+
+            print("All datasets to process:", filesets_groups.keys())
         else:
             filesets_groups = {dataset:{dataset:files} for dataset, files in filesets_to_run.items()}
 
         # Running separately on each dataset
         for group_name, fileset_ in filesets_groups.items():
+            dataset_start_time = time.time()
             datasets = list(fileset_.keys())
             if len(datasets) == 1:
                 dataset = datasets[0]
@@ -300,7 +306,7 @@ def run(cfg,  custom_run_options, outputdir, test, limit_files,
                          processor_instance=config.processor_instance)
             print(f"Saving output to {outfile.format(group_name)}")
             save(output, outfile.format(group_name))
-            print_processing_stats(output, start_time, run_options["scaleout"])
+            print_processing_stats(output, dataset_start_time, run_options["scaleout"])
 
 
     # If the processor has skimmed NanoAOD, we export a dataset_definition file
