@@ -350,11 +350,15 @@ def jet_selection(events, jet_type, params, year, leptons_collection="", jet_tag
 
     jets = events[jet_type]
     cuts = params.object_preselection[jet_type]
+    jetIdCut = True
+    if "jetId" in jets.fields:
+        jetIdCut = (jets.jetId >= cuts["jetId"])
+    else: print("No JetID cut applied, since key jetId missing in jet collections")
     # Mask for  jets not passing the preselection
     mask_presel = (
         (jets.pt > cuts["pt"])
         & (np.abs(jets.eta) < cuts["eta"])
-        & (jets.jetId >= cuts["jetId"])
+        & jetIdCut
     )
     # Lepton cleaning
     # Only jets that are more distant than dr to ALL leptons are tagged as good jets

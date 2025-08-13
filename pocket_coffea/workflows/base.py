@@ -674,8 +674,8 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     continue
                 cache = cachetools.Cache(np.inf)
                 caches.append(cache)
-                print("Jet pt from Nano:", nominal_events[jet_coll_name].pt)
-                jets_calibrated_DNA = jerc_jet(
+                # print("Jet pt from Nano:", nominal_events[jet_coll_name].pt)
+                jets_calibrated[jet_coll_name] = jerc_jet(
                     events=nominal_events,
                     chunk_metadata={
                         "year": self._year,
@@ -691,22 +691,22 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                     jer_syst=False,
                     algo=jet_type,
                 )
-                print("jet pt after JEC from HiggsDNA", jets_calibrated_DNA.pt)
-                jets_calibrated[jet_coll_name] = jet_correction_corrlib(
-                # jets_calibrated[jet_coll_name] = jet_correction(
-                    params=self.params,
-                    events=nominal_events,
-                    jets=nominal_events[jet_coll_name],
-                    # factory=self.jmefactory,
-                    jet_type = jet_type,
-                    chunk_metadata={
-                        "year": self._year,
-                        "isMC": self._isMC,
-                        "era": self._era,
-                    },
-                    cache=cache
-                )
-                print("jet pt affter JEC from coffea corrlib", jets_calibrated[jet_coll_name].pt)
+                # print("jet pt after JEC from HiggsDNA", jets_calibrated[jet_coll_name].pt)
+                # jets_calibrated[jet_coll_name] = jet_correction_corrlib(
+                # # jets_calibrated[jet_coll_name] = jet_correction(
+                #     params=self.params,
+                #     events=nominal_events,
+                #     jets=nominal_events[jet_coll_name],
+                #     # factory=self.jmefactory,
+                #     jet_type = jet_type,
+                #     chunk_metadata={
+                #         "year": self._year,
+                #         "isMC": self._isMC,
+                #         "era": self._era,
+                #     },
+                #     cache=cache
+                # )
+                # print("jet pt affter JEC from coffea corrlib", jets_calibrated[jet_coll_name].pt)
                 # jets_calibrated_old = jet_correction(
                 #     params=self.params,
                 #     events=nominal_events,

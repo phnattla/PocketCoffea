@@ -35,6 +35,7 @@ def build(params, filter_years=None):
             factories["MC"][jet_type][year] = _jet_factory_factory(files, params.jec_name_map_MC)
     # For data the corrections are by ERA
     for jet_type, years in params.jet_types["Data"].items():
+        print(params.jet_types["Data"])
         factories["Data"][jet_type] = {}
         for year, eras in years.items():
             if filter_years and year not in filter_years:

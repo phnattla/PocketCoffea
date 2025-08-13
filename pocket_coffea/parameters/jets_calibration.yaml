@@ -246,25 +246,25 @@ default_jets_calibration:
 
   ########################## Data ########################################
   factory_configuration_Data:
-    AK4PFchs:
-      JES:
-        "2018":
-          A:
-            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
-            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
-            - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
-          B:
-            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
-            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
-            - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
-          C:
-            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
-            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
-            - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
-          D:
-            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
-            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
-            - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+    # AK4PFchs:
+      # JES:
+    #     "2018":
+    #       A:
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunA_V5_DATA/Summer19UL18_RunA_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+    #       B:
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunB_V5_DATA/Summer19UL18_RunB_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+    #       C:
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunC_V5_DATA/Summer19UL18_RunC_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
+    #       D:
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L1FastJet_AK4PFchs.txt.gz"
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2Relative_AK4PFchs.txt.gz" #MC truth: https://twiki.cern.ch/twiki/bin/viewauth/CMS/IntroToJEC#L2L3_MC_truth_corrections_old_L2
+    #         - "${default_params_dir:}/jec/Summer19UL18_RunD_V5_DATA/Summer19UL18_RunD_V5_DATA_L2L3Residual_AK4PFchs.txt.gz"
     AK4PFPuppi:
       JES:
         2022_preEE:
@@ -418,7 +418,7 @@ default_jets_calibration:
 
     2023_preBPix:
       json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2023_Summer23/jet_jerc.json.gz"
-      jec_mc: Summer23Prompt23_V1_MC
+      jec_mc: Summer23Prompt23_V2_MC
       jec_data: Summer23Prompt23_V2_DATA
         # Cv1: Summer23Prompt23_RunCv123_V1_DATA
         # Cv2: "${default_jets_calibration.jec_correctionlib.2023_preBPix.jec_data.Cv1}"
@@ -430,10 +430,18 @@ default_jets_calibration:
 
     2023_postBPix:
       json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2023_Summer23BPix/jet_jerc.json.gz"
-      jec_mc: Summer23BPixPrompt23_V1_MC
-      jec_data: Summer23BPixPrompt23_RunD_V1_DATA
+      jec_mc: Summer23BPixPrompt23_V3_MC
+      jec_data: Summer23BPixPrompt23_RunD_V3_DATA
       jec_levels: "${default_jets_calibration.jec_correctionlib.2022_preEE.jec_levels}"
       jer: Summer23BPixPrompt23_RunD_JRV1_MC
+      junc: "${default_jets_calibration.jec_correctionlib.2022_preEE.junc}"
+
+    "2024":
+      json_path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2024_Summer24/jet_jerc.json.gz"
+      jec_mc: Summer24Prompt24_V1_MC
+      jec_data: Summer24Prompt24_V1_DATA
+      jec_levels: "${default_jets_calibration.jec_correctionlib.2022_preEE.jec_levels}"
+      jer: Summer23BPixPrompt23_RunD_JRV1_MC  # For the time being the 2023 jers shall be used https://cms-jerc.web.cern.ch/Recommendations/#2024_1
       junc: "${default_jets_calibration.jec_correctionlib.2022_preEE.junc}"
 
 
@@ -451,7 +459,7 @@ jets_calibration:
       AK4PFPuppi: "${default_jets_calibration.factory_configuration_MC.AK4PFPuppi.JES_JER_Syst}" 
       AK8PFPuppi: "${default_jets_calibration.factory_configuration_MC.AK8PFPuppi.JES_JER_Syst}"
     Data:
-      AK4PFchs: "${default_jets_calibration.factory_configuration_Data.AK4PFchs.JES}" 
+      # AK4PFchs: "${default_jets_calibration.factory_configuration_Data.AK4PFchs.JES}" 
       AK4PFPuppi: "${default_jets_calibration.factory_configuration_Data.AK4PFPuppi.JES}" 
     
   collection:  # this is needed to know which collection is corrected with which jet factory
@@ -479,6 +487,8 @@ jets_calibration:
     2023_postBPix:
       AK4PFPuppi: "Jet"
       #AK8PFPuppi: "FatJet"
+    "2024":
+      AK4PFPuppi: "Jet"
     
   jec_name_map_MC: "${default_jets_calibration.jec_name_map_MC}"
   jec_name_map_Data: "${default_jets_calibration.jec_name_map_Data}"
@@ -491,6 +501,7 @@ jets_calibration:
     2022_postEE: True
     2023_preBPix: True
     2023_postBPix: True
+    "2024": True
 
   rescale_MET:
     2016_PreVFP: False
@@ -501,6 +512,7 @@ jets_calibration:
     2022_postEE: True
     2023_preBPix: True
     2023_postBPix: True
+    "2024": True
 
   rescale_MET_branch:
      2016_PreVFP: "MET"
@@ -511,3 +523,4 @@ jets_calibration:
      2022_postEE: "PuppiMET"
      2023_preBPix: "PuppiMET"
      2023_postBPix: "PuppiMET"
+     "2024": "PuppiMET"
