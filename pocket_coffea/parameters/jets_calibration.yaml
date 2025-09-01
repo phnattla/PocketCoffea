@@ -814,7 +814,6 @@ jets_calibration:
     2023_postBPix:
       AK4PFPuppi: "Jet"
       #AK8PFPuppi: "FatJet"
-<<<<<<< HEAD
       #AK4PFPuppiPNetRegression: "Jet"
       #AK4PFPuppiPNetRegressionPlusNeutrino: "Jet"
      
@@ -982,42 +981,3 @@ jets_calibration:
   # the key default_jets_calibration.variations.full_variations contains the full setup of JET variations.
   # setup `jets_calibration.variations == "${default_jets_calibration.variations.full_variations}"` to use all variations
   variations: "${default_jets_calibration.variations.total_variation}"
-=======
-    "2024":
-      AK4PFPuppi: "Jet"
-    
-  jec_name_map_MC: "${default_jets_calibration.jec_name_map_MC}"
-  jec_name_map_Data: "${default_jets_calibration.jec_name_map_Data}"
-  apply_jec_nominal:
-    2016_PreVFP: False
-    2016_PostVFP: False
-    "2017": False
-    "2018": False
-    2022_preEE: True
-    2022_postEE: True
-    2023_preBPix: True
-    2023_postBPix: True
-    "2024": True
-
-  rescale_MET:
-    2016_PreVFP: False
-    2016_PostVFP: False
-    "2017": False
-    "2018": False
-    2022_preEE: True
-    2022_postEE: True
-    2023_preBPix: True
-    2023_postBPix: True
-    "2024": True
-
-  rescale_MET_branch:
-     2016_PreVFP: "MET"
-     2016_PostVFP: "MET"
-     "2017": "MET"
-     "2018": "MET"
-     2022_preEE:  "PuppiMET"
-     2022_postEE: "PuppiMET"
-     2023_preBPix: "PuppiMET"
-     2023_postBPix: "PuppiMET"
-     "2024": "PuppiMET"
->>>>>>> params2024
