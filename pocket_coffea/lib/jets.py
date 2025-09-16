@@ -10,193 +10,6 @@ from coffea.jetmet_tools import  CorrectedMETFactory
 from ..lib.deltaR_matching import get_matching_pairs_indices, object_matching
 from correctionlib.schemav2 import Correction, CorrectionSet
 
-jec_syst_regrouped = {
-    "2016_PreVFP": {
-        # regrouped jec uncertainty
-        "jec_syst_Absolute_2016": "Regrouped_Absolute_2016",
-        "jec_syst_Absolute": "Regrouped_Absolute",
-        "jec_syst_BBEC1_2016": "Regrouped_BBEC1_2016",
-        "jec_syst_BBEC1": "Regrouped_BBEC1",
-        "jec_syst_EC2_2016": "Regrouped_EC2_2016",
-        "jec_syst_EC2": "Regrouped_EC2",
-        "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
-        "jec_syst_HF_2016": "Regrouped_HF_2016",
-        "jec_syst_HF": "Regrouped_HF",
-        "jec_syst_RelativeBal": "Regrouped_Absolute",
-        "jec_syst_RelativeSample_2016": "Regrouped_RelativeSample_2016",
-        # total regrouped jec uncertainty
-        "jec_syst_Regrouped_Total": "Regrouped_Total",
-    },
-    "2016_PostVFP": {
-        # regrouped jec uncertainty
-        "jec_syst_Absolute_2016": "Regrouped_Absolute_2016",
-        "jec_syst_Absolute": "Regrouped_Absolute",
-        "jec_syst_BBEC1_2016": "Regrouped_BBEC1_2016",
-        "jec_syst_BBEC1": "Regrouped_BBEC1",
-        "jec_syst_EC2_2016": "Regrouped_EC2_2016",
-        "jec_syst_EC2": "Regrouped_EC2",
-        "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
-        "jec_syst_HF_2016": "Regrouped_HF_2016",
-        "jec_syst_HF": "Regrouped_HF",
-        "jec_syst_RelativeBal": "Regrouped_Absolute",
-        "jec_syst_RelativeSample_2016": "Regrouped_RelativeSample_2016",
-        # total regrouped jec uncertainty
-        "jec_syst_Regrouped_Total": "Regrouped_Total",
-    },
-    "2017": {
-        # regrouped jec uncertainty
-        "jec_syst_Absolute_2017": "Regrouped_Absolute_2017",
-        "jec_syst_Absolute": "Regrouped_Absolute",
-        "jec_syst_BBEC1_2017": "Regrouped_BBEC1_2017",
-        "jec_syst_BBEC1": "Regrouped_BBEC1",
-        "jec_syst_EC2_2017": "Regrouped_EC2_2017",
-        "jec_syst_EC2": "Regrouped_EC2",
-        "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
-        "jec_syst_HF_2017": "Regrouped_HF_2017",
-        "jec_syst_HF": "Regrouped_HF",
-        "jec_syst_RelativeBal": "Regrouped_Absolute",
-        "jec_syst_RelativeSample_2017": "Regrouped_RelativeSample_2017",
-        # total regrouped jec uncertainty
-        "jec_syst_Regrouped_Total": "Regrouped_Total",
-    },
-    "2018": {
-        # regrouped jec uncertainty
-        "jec_syst_Absolute_2018": "Regrouped_Absolute_2018",
-        "jec_syst_Absolute": "Regrouped_Absolute",
-        "jec_syst_BBEC1_2018": "Regrouped_BBEC1_2018",
-        "jec_syst_BBEC1": "Regrouped_BBEC1",
-        "jec_syst_EC2_2018": "Regrouped_EC2_2018",
-        "jec_syst_EC2": "Regrouped_EC2",
-        "jec_syst_FlavorQCD": "Regrouped_FlavorQCD",
-        "jec_syst_HF_2018": "Regrouped_HF_2018",
-        "jec_syst_HF": "Regrouped_HF",
-        "jec_syst_RelativeBal": "Regrouped_Absolute",
-        "jec_syst_RelativeSample_2018": "Regrouped_RelativeSample_2018",
-        # total regrouped jec uncertainty
-        "jec_syst_Regrouped_Total": "Regrouped_Total",
-    },
-    "2022_preEE": {
-        "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
-        "jec_syst_AbsoluteScale": "AbsoluteScale",
-        "jec_syst_AbsoluteStat": "AbsoluteStat",
-        "jec_syst_FlavorQCD": "FlavorQCD",
-        "jec_syst_Fragmentation": "Fragmentation",
-        "jec_syst_PileUpDataMC": "PileUpDataMC",
-        "jec_syst_PileUpPtBB": "PileUpPtBB",
-        "jec_syst_PileUpPtEC1": "PileUpPtEC1",
-        "jec_syst_PileUpPtEC2": "PileUpPtEC2",
-        "jec_syst_PileUpPtHF": "PileUpPtHF",
-        "jec_syst_PileUpPtRef": "PileUpPtRef",
-        "jec_syst_RelativeFSR": "RelativeFSR",
-        "jec_syst_RelativeJEREC1": "RelativeJEREC1",
-        "jec_syst_RelativeJEREC2": "RelativeJEREC2",
-        "jec_syst_RelativeJERHF": "RelativeJERHF",
-        "jec_syst_RelativePtBB": "RelativePtBB",
-        "jec_syst_RelativePtEC1": "RelativePtEC1",
-        "jec_syst_RelativePtEC2": "RelativePtEC2",
-        "jec_syst_RelativePtHF": "RelativePtHF",
-        "jec_syst_RelativeBal": "RelativeBal",
-        "jec_syst_RelativeSample": "RelativeSample",
-        "jec_syst_RelativeStatEC": "RelativeStatEC",
-        "jec_syst_RelativeStatFSR": "RelativeStatFSR",
-        "jec_syst_RelativeStatHF": "RelativeStatHF",
-        "jec_syst_SinglePionECAL": "SinglePionECAL",
-        "jec_syst_SinglePionHCAL": "SinglePionHCAL",
-        "jec_syst_TimePtEta": "TimePtEta",
-        "jec_syst_Total": "Total",
-    },
-    "2022_postEE": {
-        "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
-        "jec_syst_AbsoluteScale": "AbsoluteScale",
-        "jec_syst_AbsoluteStat": "AbsoluteStat",
-        "jec_syst_FlavorQCD": "FlavorQCD",
-        "jec_syst_Fragmentation": "Fragmentation",
-        "jec_syst_PileUpDataMC": "PileUpDataMC",
-        "jec_syst_PileUpPtBB": "PileUpPtBB",
-        "jec_syst_PileUpPtEC1": "PileUpPtEC1",
-        "jec_syst_PileUpPtEC2": "PileUpPtEC2",
-        "jec_syst_PileUpPtHF": "PileUpPtHF",
-        "jec_syst_PileUpPtRef": "PileUpPtRef",
-        "jec_syst_RelativeFSR": "RelativeFSR",
-        "jec_syst_RelativeJEREC1": "RelativeJEREC1",
-        "jec_syst_RelativeJEREC2": "RelativeJEREC2",
-        "jec_syst_RelativeJERHF": "RelativeJERHF",
-        "jec_syst_RelativePtBB": "RelativePtBB",
-        "jec_syst_RelativePtEC1": "RelativePtEC1",
-        "jec_syst_RelativePtEC2": "RelativePtEC2",
-        "jec_syst_RelativePtHF": "RelativePtHF",
-        "jec_syst_RelativeBal": "RelativeBal",
-        "jec_syst_RelativeSample": "RelativeSample",
-        "jec_syst_RelativeStatEC": "RelativeStatEC",
-        "jec_syst_RelativeStatFSR": "RelativeStatFSR",
-        "jec_syst_RelativeStatHF": "RelativeStatHF",
-        "jec_syst_SinglePionECAL": "SinglePionECAL",
-        "jec_syst_SinglePionHCAL": "SinglePionHCAL",
-        "jec_syst_TimePtEta": "TimePtEta",
-        "jec_syst_Total": "Total",
-    },
-    "2023_preBPix": {
-        "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
-        "jec_syst_AbsoluteScale": "AbsoluteScale",
-        "jec_syst_AbsoluteStat": "AbsoluteStat",
-        "jec_syst_FlavorQCD": "FlavorQCD",
-        "jec_syst_Fragmentation": "Fragmentation",
-        "jec_syst_PileUpDataMC": "PileUpDataMC",
-        "jec_syst_PileUpPtBB": "PileUpPtBB",
-        "jec_syst_PileUpPtEC1": "PileUpPtEC1",
-        "jec_syst_PileUpPtEC2": "PileUpPtEC2",
-        "jec_syst_PileUpPtHF": "PileUpPtHF",
-        "jec_syst_PileUpPtRef": "PileUpPtRef",
-        "jec_syst_RelativeFSR": "RelativeFSR",
-        "jec_syst_RelativeJEREC1": "RelativeJEREC1",
-        "jec_syst_RelativeJEREC2": "RelativeJEREC2",
-        "jec_syst_RelativeJERHF": "RelativeJERHF",
-        "jec_syst_RelativePtBB": "RelativePtBB",
-        "jec_syst_RelativePtEC1": "RelativePtEC1",
-        "jec_syst_RelativePtEC2": "RelativePtEC2",
-        "jec_syst_RelativePtHF": "RelativePtHF",
-        "jec_syst_RelativeBal": "RelativeBal",
-        "jec_syst_RelativeSample": "RelativeSample",
-        "jec_syst_RelativeStatEC": "RelativeStatEC",
-        "jec_syst_RelativeStatFSR": "RelativeStatFSR",
-        "jec_syst_RelativeStatHF": "RelativeStatHF",
-        "jec_syst_SinglePionECAL": "SinglePionECAL",
-        "jec_syst_SinglePionHCAL": "SinglePionHCAL",
-        "jec_syst_TimePtEta": "TimePtEta",
-        "jec_syst_Total": "Total",
-    },
-    "2023_postBPix": {
-        "jec_syst_AbsoluteMPFBias": "AbsoluteMPFBias",
-        "jec_syst_AbsoluteScale": "AbsoluteScale",
-        "jec_syst_AbsoluteStat": "AbsoluteStat",
-        "jec_syst_FlavorQCD": "FlavorQCD",
-        "jec_syst_Fragmentation": "Fragmentation",
-        "jec_syst_PileUpDataMC": "PileUpDataMC",
-        "jec_syst_PileUpPtBB": "PileUpPtBB",
-        "jec_syst_PileUpPtEC1": "PileUpPtEC1",
-        "jec_syst_PileUpPtEC2": "PileUpPtEC2",
-        "jec_syst_PileUpPtHF": "PileUpPtHF",
-        "jec_syst_PileUpPtRef": "PileUpPtRef",
-        "jec_syst_RelativeFSR": "RelativeFSR",
-        "jec_syst_RelativeJEREC1": "RelativeJEREC1",
-        "jec_syst_RelativeJEREC2": "RelativeJEREC2",
-        "jec_syst_RelativeJERHF": "RelativeJERHF",
-        "jec_syst_RelativePtBB": "RelativePtBB",
-        "jec_syst_RelativePtEC1": "RelativePtEC1",
-        "jec_syst_RelativePtEC2": "RelativePtEC2",
-        "jec_syst_RelativePtHF": "RelativePtHF",
-        "jec_syst_RelativeBal": "RelativeBal",
-        "jec_syst_RelativeSample": "RelativeSample",
-        "jec_syst_RelativeStatEC": "RelativeStatEC",
-        "jec_syst_RelativeStatFSR": "RelativeStatFSR",
-        "jec_syst_RelativeStatHF": "RelativeStatHF",
-        "jec_syst_SinglePionECAL": "SinglePionECAL",
-        "jec_syst_SinglePionHCAL": "SinglePionHCAL",
-        "jec_syst_TimePtEta": "TimePtEta",
-        "jec_syst_Total": "Total",
-    },
-}
-
 
 def add_jec_variables(jets, event_rho, isMC=True):
     jets["pt_raw"] = (1 - jets.rawFactor) * jets.pt
@@ -704,23 +517,23 @@ def get_jersmear(_eval_dict, _ceval, _jer_sf_tag, _syst="nom"):
     return _eval_dict, _jersmear
 
 
-def jet_correction_clib(
-    events,
-    chunk_metadata,
+def jet_correction_corrlib(
     params,
+    events,
+    jet_type,
+    chunk_metadata,
     level="L1L2L3Res",
+    jet_coll_name="Jet",
     apply_jec=True,
-    jec_syst=False,
-    split_jec_syst=False,
-    apply_jer=False,
-    jer_syst=False,
-    algo="AK4PFPuppi",
-    jet_coll_name="Jet"
+    jec_syst=True,
+    apply_jer=True,
+    jer_syst=True,
 ):
     isMC = chunk_metadata["isMC"]
     year = chunk_metadata["year"]
     era = chunk_metadata["era"]
-    jec_clib_dict = params["default_jets_calibration"]["jec_correctionlib"]
+    jec_clib_dict = params["jets_calibration_clib"]
+    variations = params.jets_calibration.variations[year][jet_type]
 
     json_path = jec_clib_dict[year]["json_path"]
     jer_tag = None
@@ -733,17 +546,11 @@ def jet_correction_clib(
         else:
             jec_tag = jec_clib_dict[year]['jec_data'][chunk_metadata["era"]]
 
-    # first, check if it's data or MC
-    if isMC:
-        apply_jer=True,
-    else:
-        apply_jec = True
-        jec_syst = False
-        split_jec_syst = False
-        apply_jer = False
-        jer_syst = False
+    # no jer and variations applied on data
+    if not isMC:
+        apply_jer = jec_syst = jer_syst = False
 
-    tag_jec = "_".join([jec_tag, level, algo])
+    tag_jec = "_".join([jec_tag, level, jet_type])
 
     # get the correction sets
     cset = correctionlib.CorrectionSet.from_file(json_path)
@@ -752,27 +559,15 @@ def jet_correction_clib(
     jets_jagged = events[jet_coll_name]
     counts = ak.num(jets_jagged)
 
-    # avoid using hasattr(jets_jagged, "rho"). Same name as the coffea vector property of rho: https://github.com/CoffeaTeam/coffea/blob/0e43daf8e40ccec44efb2622777354ebd0424b84/src/coffea/nanoevents/methods/vector.py#L482
-    if "rho_value" not in jets_jagged.fields:
-        try:
-            jets_jagged["rho_value"] = (
-                ak.ones_like(jets_jagged.pt) * events.Rho.fixedGridRhoFastjetAll
-            )
-        except:
-            # UL datasets have different naming convention
-            jets_jagged["rho_value"] = (
-                ak.ones_like(jets_jagged.pt) * events.fixedGridRhoFastjetAll
-            )
-    # create the gen_matched pt, only for once
-    if ("pt_gen" not in jets_jagged.fields) and (apply_jer or jer_syst):
-        # TODO: finalize the gen-matching algorithms
-        # current follow coffea example: https://github.com/CoffeaTeam/coffea/blob/16db8f663e40dafd2399d32862c20e3faa5542be/binder/applying_corrections.ipynb#L423
-        jets_jagged["pt_gen"] = ak.fill_none(jets_jagged.matched_gen.pt, -99999)
-    # create the eventid, only for once
     if ("event_id" not in jets_jagged.fields) and (apply_jer or jer_syst):
         jets_jagged["event_id"] = ak.ones_like(jets_jagged.pt) * events.event
     if ("run_nr" not in jets_jagged.fields):
         jets_jagged["run_nr"] = ak.ones_like(jets_jagged.pt) * events.run
+    if year in ['2016_PreVFP', '2016_PostVFP','2017','2018']:
+        rho = events.fixedGridRhoFastjetAll
+    else:
+        rho = events.Rho.fixedGridRhoFastjetAll
+    jets_jagged = add_jec_variables(jets_jagged, rho, isMC)
 
     # flatten
 
@@ -782,7 +577,7 @@ def jet_correction_clib(
         "JetPt": jets.pt_raw,
         "JetEta": jets.eta,
         "JetPhi": jets.phi,
-        "Rho": jets.rho_value,
+        "Rho": jets.event_rho,
         "JetA": jets.area,
         "run": jets.run_nr
     }
@@ -799,18 +594,18 @@ def jet_correction_clib(
             raise Exception(f"[No JEC correction: {tag_jec} - Year: {year} - Era: {era} - Level: {level}")
         inputs = [eval_dict[input.name] for input in sf.inputs]
         sf_value = sf.evaluate(*inputs)
-        jets["pt_jec"] = sf_value * jets["pt_raw"]
-        jets["mass_jec"] = sf_value * jets["mass_raw"]
+        # jets["pt_jec"] = sf_value * jets["pt_raw"]
+        # jets["mass_jec"] = sf_value * jets["mass_raw"]
         # update the nominal pt and mass
-        jets["pt"] = jets["pt_jec"]
-        jets["mass"] = jets["mass_jec"]
+        jets["pt"] = sf_value * jets["pt_raw"]
+        jets["mass"] = sf_value * jets["mass_raw"]
 
     # jer central and systematics
     if apply_jer or jer_syst:
         # learned from: https://github.com/cms-nanoAOD/correctionlib/issues/130
 
-        jer_ptres_tag = f"{jer_tag}_PtResolution_{algo}"
-        jer_sf_tag = f"{jer_tag}_ScaleFactor_{algo}"
+        jer_ptres_tag = f"{jer_tag}_PtResolution_{jet_type}"
+        jer_sf_tag = f"{jer_tag}_ScaleFactor_{jet_type}"
 
         ceval_jer = get_jer_correction_set(json_path, jer_ptres_tag, jer_sf_tag)
         # update evaluate dictionary
@@ -828,7 +623,7 @@ def jet_correction_clib(
         jer_ptres = ceval_jer[jer_ptres_tag].evaluate(*inputs_jer_ptres)
         # update evaluate dictionary
         eval_dict.update({"JER": jer_ptres})
-        # addjust pt gen
+        # adjust pt gen
         eval_dict.update(
             {
                 "GenPt": np.where(
@@ -846,12 +641,12 @@ def jet_correction_clib(
         if jer_syst:
             # jer up
             eval_dict, jersmear = get_jersmear(eval_dict, ceval_jer, jer_sf_tag, "up")
-            jets["pt_jer_syst_up"] = jets.pt * jersmear
-            jets["mass_jer_syst_up"] = jets.mass * jersmear
+            jets["pt_JER_up"] = jets.pt * jersmear
+            jets["mass_JER_up"] = jets.mass * jersmear
             # jer down
             eval_dict, jersmear = get_jersmear(eval_dict, ceval_jer, jer_sf_tag, "down")
-            jets["pt_jer_syst_down"] = jets.pt * jersmear
-            jets["mass_jer_syst_down"] = jets.mass * jersmear
+            jets["pt_JER_down"] = jets.pt * jersmear
+            jets["mass_JER_down"] = jets.mass * jersmear
         if apply_jer:
             # to avoid the sf: jer*jer_up or jer*jer_down, update the jer pt/mass after calculation of the jer up/down
             jets["pt"] = jets["pt_jer"]
@@ -861,9 +656,11 @@ def jet_correction_clib(
     if jec_syst:
         # update evaluate dictionary
         eval_dict.update({"JetPt": jets.pt})
-        if not split_jec_syst:
+        # loop over all JES variations
+        jes_strings = [s[4:] for s in variations if s.startswith("JES")]
+        for jes_vari in jes_strings:
             # get the total uncertainty
-            tag_jec_syst = "_".join([jec_tag, "Total", algo])
+            tag_jec_syst = "_".join([jec_tag, "Regrouped" ,jes_vari, jet_type])
             try:
                 sf = cset[tag_jec_syst]
             except:
@@ -877,34 +674,13 @@ def jet_correction_clib(
             # divide by correction since it is already applied before
             corr_up_variation = 1 + sf_delta
             corr_down_variation = 1 - sf_delta
-
-            jets["pt_jec_syst_Total_up"] = jets.pt * corr_up_variation
-            jets["pt_jec_syst_Total_down"] = jets.pt * corr_down_variation
-            jets["mass_jec_syst_Total_up"] = jets.mass * corr_up_variation
-            jets["mass_jec_syst_Total_down"] = jets.mass * corr_down_variation
-        else:
-
-            for i in jec_syst_regrouped[year]:
-                # get the total uncertainty
-                tag_jec_syst = "_".join([jec_tag, jec_syst_regrouped[year][i], algo])
-                try:
-                    sf = cset[tag_jec_syst]
-                except:
-                    raise Exception(
-                        f"[ jerc_jet ] No JEC systematic: {tag_jec_syst} - Year: {year} - Era: {era}"
-                    )
-                # systematics
-                inputs = [eval_dict[input.name] for input in sf.inputs]
-                sf_delta = sf.evaluate(*inputs)
-
-                # divide by correction since it is already applied before
-                corr_up_variation = 1 + sf_delta
-                corr_down_variation = 1 - sf_delta
-
-                jets[f"pt_{i}_up"] = jets.pt * corr_up_variation
-                jets[f"pt_{i}_down"] = jets.pt * corr_down_variation
-                jets[f"mass_{i}_up"] = jets.mass * corr_up_variation
-                jets[f"mass_{i}_down"] = jets.mass * corr_down_variation
+            # self.jets_calibrated[jet_coll_name][variation_type].up
+            jets[f"pt_JES_{jes_vari}_up"] = jets.pt * corr_up_variation
+            jets[f"pt_JES_{jes_vari}_down"] = jets.pt * corr_down_variation
+            jets[f"mass_JES_{jes_vari}_up"] = jets.mass * corr_up_variation
+            jets[f"mass_JES_{jes_vari}_down"] = jets.mass * corr_down_variation
+            # print("TESTS")
+    # print("TESTSTSTSTSTSTSTSTS")
     jets_jagged = ak.unflatten(jets, counts)
     # events.Jet = jets_jagged
     return jets_jagged
