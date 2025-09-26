@@ -266,7 +266,6 @@ def jet_selection(events, jet_type, params, year, leptons_collection="", jet_tag
     # For nanoV12 (i.e. 22/23), jet Id is also buggy, should therefore be rederived
     # in the following, if nano_version not explicitly specified in params, v9 is assumed for Run2UL, v12 for 22/23 and v15 for 2024
     jets["jetId_corrected"] = add_jetId(events, jet_type, params, year)
-    print(jets.jetId_corrected >= cuts["jetId"])
 
     # Mask for  jets not passing the preselection
     mask_presel = (
