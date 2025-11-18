@@ -407,7 +407,7 @@ def add_jetId(events, jet_type, params, year):
         }
 
         ## Default tight for NanoAOD version 13 and above
-        jet_algo_mapping = params.jets_calibration.collection[year]
+        jet_algo_mapping = params["jets_calibration"]["collection"][year]
         jet_algo = next((k for k, v in jet_algo_mapping.items() if v == jet_type), None)
         if jet_algo==None:
             raise Exception(f"No mapping jet_type ({jet_type}) -> jet_algo (e.g. AK4PFPuppi) defined for year {year}")
