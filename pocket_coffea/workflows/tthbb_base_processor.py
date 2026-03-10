@@ -6,6 +6,7 @@ from ..utils.configurator import Configurator
 from ..lib.hist_manager import Axis
 from ..lib.objects import (
     lepton_selection,
+    lepton_selection_mvaTTH,
     jet_selection,
     btagging,
     get_dilepton,
@@ -30,7 +31,7 @@ class ttHbbBaseProcessor(BaseProcessorABC):
         )
         # Build masks for selection of muons, electrons, jets, fatjets
         self.events["MuonGood"] = lepton_selection(self.events, "Muon", self.params)
-        self.events["ElectronGood"] = lepton_selection(
+        self.events["ElectronGood"] = lepton_selection_mvaTTH(
             self.events, "Electron", self.params
         )
         leptons = ak.with_name(
