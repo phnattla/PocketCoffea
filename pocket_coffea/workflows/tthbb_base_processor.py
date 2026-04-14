@@ -31,8 +31,10 @@ class ttHbbBaseProcessor(BaseProcessorABC):
         )
         # Build masks for selection of muons, electrons, jets, fatjets
         self.events["MuonGood"] = lepton_selection(self.events, "Muon", self.params)
-        self.events["ElectronGood"] = lepton_selection_mvaTTH(
+        self.events["ElectronGood"] = lepton_selection(
             self.events, "Electron", self.params
+        # self.events["ElectronGood"], good_ele = lepton_selection_mvaTTH(
+        #     self.events, "Electron", self._year, self.params
         )
         leptons = ak.with_name(
             ak.concatenate((self.events.MuonGood, self.events.ElectronGood), axis=1),
