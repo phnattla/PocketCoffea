@@ -1836,7 +1836,8 @@ class SystUnc:
             self.rax.yaxis.set_label_coords(-0.075, 1)
             self.rax.tick_params(axis="x", labelsize=self.style.fontsize)
             self.rax.tick_params(axis="y", labelsize=self.style.fontsize)
-            self.rax.set_ylim(self.yaxis_ratio_limit)
+            self.rax.set_ylim((0.5, 1.5))
+            # self.rax.set_ylim(self.yaxis_ratio_limit)
 
         if self.style.has_labels:
             handles, labels = self.ax.get_legend_handles_labels()

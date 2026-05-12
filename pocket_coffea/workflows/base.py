@@ -740,7 +740,9 @@ class BaseProcessorABC(processor.ProcessorABC, ABC):
                 self.output['sum_genweights'][self._dataset] = ak.sum(self.events.genWeight)
             else:
                 # If the dataset is a skim, the sumgenweights are rescaled
-                self.output['sum_genweights'][self._dataset] = ak.sum(self.events.skimRescaleGenWeight * self.events.genWeight)
+                arr = np.array(self.events.skimRescaleGenWeight * self.events.genWeight)
+                print(arr[~np.isfinite(arr)])
+                self.output['sum_genweights'][self._dataset] = ak.sum(arr[np.isfinite(arr)])
             #FIXME: handle correctly the skim for the sum_signOf_genweights
             self.output['sum_signOf_genweights'][self._dataset] = ak.sum(np.sign(self.events.genWeight))
 
